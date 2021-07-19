@@ -1,4 +1,4 @@
-# Solid Slider
+# <img width="27px" src="https://github.com/solidjs/solid-site/raw/master/src/assets/logo.png" alt="Solid logo"> &nbsp;Solid Slider
 
 A carousel/slider implementation in TypeScript for Solid using KeenSlider. keen-slider is a free library agnostic touch slider with native touch/swipe behavior and great performance. It comes with no dependencies, typescript support, multitouch support and is compatible with all common browsers.
 
