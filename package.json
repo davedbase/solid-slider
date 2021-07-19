@@ -5,6 +5,7 @@
   "scripts": {
     "prebuild": "npm run clean",
     "clean": "rimraf dist/",
+    "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
     "build": "tsc"
   },
   "main": "dist/index.js",
