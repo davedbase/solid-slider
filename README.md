@@ -21,7 +21,7 @@ import createSlider from "solid-slider";
 The following is an example of how to create and then bind keen using a directive.
 
 ```ts
-const MyComponent = props => {
+const MyComponent = () => {
   const options = { duration: 1000 };
   [slider, current, next, prev, moveTo] = createSlider(options);
   return (
@@ -37,7 +37,7 @@ const MyComponent = props => {
 or without a directive:
 
 ```ts
-const MyComponent = props => {
+const MyComponent = () => {
   let ref: HTMLElement;
   const options = { duration: 1000 };
   [slider, current, next, prev, moveTo] = createSlider(options);
@@ -58,6 +58,6 @@ const MyComponent = props => {
 
 You can assign options to the slider via parameters. Note that there are other hooks available as well. Only a subset of useful methods are exposed via the primitive although you can access the slider instance as well from the exports to use the methods directly.
 
-- [https://keen-slider.io/api/#options](Options)
-- [https://keen-slider.io/api/#event-hooks](Event Hooks)
-- [https://keen-slider.io/api/#methods](Methods)
+- [Options](https://keen-slider.io/api/#options)
+- [Event Hooks](https://keen-slider.io/api/#event-hooks)
+- [Methods](https://keen-slider.io/api/#methods)
