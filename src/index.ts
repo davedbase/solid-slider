@@ -16,15 +16,20 @@ declare module "solid-js" {
  * Creates a slider powered by KeenSlider.
  *
  * @param {options} Options to initialize the slider with
+ * @returns {Array} An array of useful utilities
  * @returns [create] Register and creation function to call on setup
  * @returns [current] Current slide number
  * @returns [next] Function to trigger the next slide
  * @returns [prev] Function to trigger the previous slide
- * @returns [moveTo] Identifies which
+ * @returns [moveTo] Allow you to change the slider to a specific slide
+ * @returns [refresh] Refresh trigger
+ * @returns [details] Retrieve a list of SliderDetails
+ * @returns [slider] Gain access to the slider itself
+ * @returns [destroy] Destroy the entire slider (this is automatically handled)
  * 
  * @example
  * ```ts
- * const [create, clear] = createSlider();
+ * const [create] = createSlider();
  * <div use:slider>...</div>
  * ```
  */
