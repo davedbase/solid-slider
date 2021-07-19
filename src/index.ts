@@ -42,12 +42,6 @@ const createSlider = (options: SliderOptions = {}): [
 ] => {
   let slider: KeenSlider;
   const [current, setCurrent] = createSignal(0);
-  const moveTo = (id: number, duration = 250) => slider.moveToSlide(id, duration);
-  const next = () => slider.next();
-  const prev = () => slider.prev();
-  const details = () => slider.details();
-  const resize = () => slider.resize();
-  const refresh = () => slider.refresh();
   const destroy = () => slider && slider.destroy();
   const create = (el: HTMLElement) => {
     let opts = {...options};
@@ -64,12 +58,12 @@ const createSlider = (options: SliderOptions = {}): [
   return [
     create,
     current,
-    next,
-    prev,
-    moveTo,
-    resize,
-    refresh,
-    details,
+    () => slider.next(),
+    () => slider.prev(),
+    (id: number, duration = 250) => slider.moveToSlide(id, duration),
+    () => slider.resize(),
+    () => slider.refresh(),
+    () => slider.details(),
     () => slider,
     destroy
   ];

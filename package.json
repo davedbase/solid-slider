@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "0.0.150",
+  "version": "0.0.175",
   "description": "A slider/carousel component for Solid powered by KeenSlider.",
   "author": "David Di Biase",
   "license": "ISC",

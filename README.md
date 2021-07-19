@@ -12,7 +12,7 @@ yarn add solid-slider ## or in yarn
 Add as a module:
 
 ```ts
-import "solid-slider/slider.css";
+import "solid-slider/dist/slider.css";
 import createSlider from "solid-slider";
 ```
 
