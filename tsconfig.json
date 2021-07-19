@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "emitDeclarationOnly": false,
+    "declaration": true,
+    "target": "esnext",
+    "newLine": "LF",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,2 +1,3 @@
-# solider-slider
-A carousel/slider implementation for Solid using KeenSlider. 
+# solid-slider
+
+A carousel/slider implementation for Solid using KeenSlider.

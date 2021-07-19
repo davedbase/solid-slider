@@ -1,0 +1,37 @@
+{
+  "name": "solid-slider",
+  "version": "0.0.100",
+  "description": "A slider/carousel component for Solid powered by KeenSlider.",
+  "scripts": {
+    "prebuild": "npm run clean",
+    "clean": "rimraf dist/",
+    "build": "tsc"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": "false",
+  "repository": {
+    "type": "git",
+    "url": "git+https://davedbase@github.com/davedbase/solid-slider.git"
+  },
+  "keywords": [
+    "slider",
+    "carouse",
+    "solid",
+    "keen"
+  ],
+  "author": "David Di Biase",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davedbase/solid-slider/issues"
+  },
+  "homepage": "https://github.com/davedbase/solid-slider#readme",
+  "dependencies": {
+    "keen-slider": "^5.5.1",
+    "solid-js": "^1.0.3"
+  }
+}
