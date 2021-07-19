@@ -52,8 +52,8 @@ const createSlider = (options: SliderOptions = {}): [
     let opts = {...options};
     // @ts-ignore
     opts.slides = el.childNodes;
-    opts.afterChange = (instance) => {
-      options.afterChange && options.afterChange(instance);
+    opts.slideChanged = (instance) => {
+      options.slideChanged && options.slideChanged(instance);
       setCurrent(instance.details().relativeSlide);
     };
     el.classList.add('keen-slider');

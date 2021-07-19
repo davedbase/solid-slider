@@ -16,6 +16,10 @@ import "solid-slider/dist/slider.css";
 import createSlider from "solid-slider";
 ```
 
+## Demo
+
+You can find a functional demo of the slider with most features implemented here: https://codesandbox.io/s/solid-slider-j0x2g
+
 ## Example
 
 The following is an example of how to create and then bind options using a directive.
