@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "0.0.110",
+  "version": "0.0.150",
   "description": "A slider/carousel component for Solid powered by KeenSlider.",
   "author": "David Di Biase",
   "license": "ISC",
@@ -12,15 +12,14 @@
     "prebuild": "npm run clean",
     "clean": "rimraf dist/",
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "build": "tsc"
+    "build": "tsc && cp src/slider.css dist/slider.css"
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": "false",
   "files": [
-    "dist",
-    "src/*.css"
+    "dist"
   ],
   "repository": {
     "type": "git",
