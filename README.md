@@ -27,7 +27,7 @@ The following is an example of how to create and then bind options using a direc
 ```ts
 const MyComponent = () => {
   const options = { duration: 1000 };
-  [slider, current, next, prev, moveTo] = createSlider(options);
+  const [slider, current, next, prev, moveTo] = createSlider(options);
   return (
     <div use:slider>
       <div>Slide 1</div>
@@ -44,7 +44,7 @@ or without a directive:
 const MyComponent = () => {
   let ref: HTMLElement;
   const options = { duration: 1000 };
-  [slider, current, next, prev, moveTo] = createSlider(options);
+  const [slider, current, next, prev, moveTo] = createSlider(options);
   onMount(() => {
     slider(ref);
   });
