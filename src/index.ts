@@ -26,50 +26,58 @@ declare module "solid-js" {
  * @returns [details] Retrieve a list of SliderDetails
  * @returns [slider] Gain access to the slider itself
  * @returns [destroy] Destroy the entire slider (this is automatically handled)
- * 
+ *
  * @example
  * ```ts
  * const [create] = createSlider();
  * <div use:slider>...</div>
  * ```
  */
-const createSlider = (options: SliderOptions = {}): {
-  slider: (el: HTMLElement) => void,
-  current: () => number,
-  next: () => void,
-  prev: () => void,
-  moveTo: (id: number, duration?: number) => void,
-  resize: () => void,
-  refresh: () => void,
-  details: () => SliderDetails,
-  destroy: () => void,
-} => {
+const createSlider = (
+  options: SliderOptions = {}
+): [
+  (el: HTMLElement) => void,
+  {
+    current: () => number;
+    next: () => void;
+    prev: () => void;
+    moveTo: (id: number, duration?: number) => void;
+    resize: () => void;
+    refresh: () => void;
+    details: () => SliderDetails;
+    slider: () => KeenSlider;
+    destroy: () => void;
+  }
+] => {
   let slider: KeenSlider;
   const [current, setCurrent] = createSignal(0);
   const destroy = () => slider && slider.destroy();
   const create = (el: HTMLElement) => {
-    let opts = {...options};
+    let opts = { ...options };
     // @ts-ignore
     opts.slides = el.childNodes;
-    opts.slideChanged = (instance) => {
+    opts.slideChanged = instance => {
       options.slideChanged && options.slideChanged(instance);
       setCurrent(instance.details().relativeSlide);
     };
-    el.classList.add('keen-slider');
-    onMount(() => slider = new KeenSlider(el, opts));
+    el.classList.add("keen-slider");
+    onMount(() => (slider = new KeenSlider(el, opts)));
     onCleanup(destroy);
   };
-  return {
-    slider: create,
-    current,
-    next: () => slider.next(),
-    prev: () => slider.prev(),
-    moveTo: (id: number, duration = 250) => slider.moveToSlide(id, duration),
-    resize: () => slider.resize(),
-    refresh: () => slider.refresh(),
-    details: () => slider.details(),
-    destroy
-  };
+  return [
+    create,
+    {
+      current,
+      next: () => slider.next(),
+      prev: () => slider.prev(),
+      moveTo: (id: number, duration = 250) => slider.moveToSlide(id, duration),
+      resize: () => slider.resize(),
+      refresh: () => slider.refresh(),
+      details: () => slider.details(),
+      slider: () => slider,
+      destroy
+    }
+  ];
 };
 
 export default createSlider;
