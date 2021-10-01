@@ -33,8 +33,8 @@ declare module "solid-js" {
  * <div use:slider>...</div>
  * ```
  */
-const createSlider = (options: SliderOptions = {}): [
-  create: (el: HTMLElement) => void,
+const createSlider = (options: SliderOptions = {}): {
+  slider: (el: HTMLElement) => void,
   current: () => number,
   next: () => void,
   prev: () => void,
@@ -42,9 +42,8 @@ const createSlider = (options: SliderOptions = {}): [
   resize: () => void,
   refresh: () => void,
   details: () => SliderDetails,
-  slider: () => KeenSlider,
   destroy: () => void,
-] => {
+} => {
   let slider: KeenSlider;
   const [current, setCurrent] = createSignal(0);
   const destroy = () => slider && slider.destroy();
@@ -60,18 +59,17 @@ const createSlider = (options: SliderOptions = {}): [
     onMount(() => slider = new KeenSlider(el, opts));
     onCleanup(destroy);
   };
-  return [
-    create,
+  return {
+    slider: create,
     current,
-    () => slider.next(),
-    () => slider.prev(),
-    (id: number, duration = 250) => slider.moveToSlide(id, duration),
-    () => slider.resize(),
-    () => slider.refresh(),
-    () => slider.details(),
-    () => slider,
+    next: () => slider.next(),
+    prev: () => slider.prev(),
+    moveTo: (id: number, duration = 250) => slider.moveToSlide(id, duration),
+    resize: () => slider.resize(),
+    refresh: () => slider.refresh(),
+    details: () => slider.details(),
     destroy
-  ];
+  };
 };
 
 export default createSlider;
