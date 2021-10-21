@@ -6,7 +6,7 @@ export type SliderDetails = TDetails;
 
 declare module "solid-js" {
   namespace JSX {
-    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    interface HTMLAttributes<T> extends HTMLAttributes<T> {
       ["use:slider"]?: {};
     }
   }
