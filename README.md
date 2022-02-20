@@ -26,7 +26,11 @@ You can find a functional demo of the slider with most features implemented here
 
 ## Plugins
 
-Plugins may be added directly via the createSlider primitive. You may add a KeenSlider plugin directly or built-in plugins shipped with this package. Currently an autoplay plugin is available that will assist with autoplaying actions in the slider. Simply add the plugins after the options parameter.
+Plugins may be added directly via the createSlider primitive. You may add a KeenSlider plugin directly or built-in plugins shipped with this package. Currently an autoplay plugin is available that will assist with autoplaying actions in the slider. Simply add the plugins after the options parameter. Please feel free to post requests for additional plugins or submit PRs if you decide to improve the base functionality. Some ideas for additional plugins include:
+
+- Slider nav (dot, arrow controls even thumbnails)
+- Lazy loaded images
+- Slide transitions
 
 ### Autoplay
 
