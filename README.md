@@ -62,6 +62,7 @@ const MyComponent = () => {
 
 - 1.0.0 - Initial release
 - 1.0.3 - Changed the exported API to be slightly more flexible.
+- 1.1.0 - Upgraded to KeenSlider 6 and improved general reactivity.
 
 ## Keen Options API
 

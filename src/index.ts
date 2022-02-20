@@ -1,13 +1,16 @@
-import { onMount, onCleanup, createSignal } from "solid-js";
-import KeenSlider, { TOptionsEvents, TDetails } from "keen-slider";
-
-export type SliderOptions = TOptionsEvents;
-export type SliderDetails = TDetails;
+import { on, onMount, createSignal, onCleanup, Accessor, createEffect } from "solid-js";
+import KeenSlider, {
+  KeenSliderHooks,
+  KeenSliderInstance,
+  KeenSliderOptions,
+  KeenSliderPlugin,
+  TrackDetails
+} from "keen-slider";
 
 declare module "solid-js" {
   namespace JSX {
-    interface HTMLAttributes<T> extends HTMLAttributes<T> {
-      ["use:slider"]?: {};
+    interface Directives {
+      slider: {};
     }
   }
 }
@@ -16,65 +19,79 @@ declare module "solid-js" {
  * Creates a slider powered by KeenSlider.
  *
  * @param {options} Options to initialize the slider with
- * @returns {Array} An array of useful utilities
- * @returns [create] Register and creation function to call on setup
- * @returns [current] Current slide number
- * @returns [next] Function to trigger the next slide
- * @returns [prev] Function to trigger the previous slide
- * @returns [moveTo] Allow you to change the slider to a specific slide
- * @returns [refresh] Refresh trigger
- * @returns [details] Retrieve a list of SliderDetails
- * @returns [slider] Gain access to the slider itself
- * @returns [destroy] Destroy the entire slider (this is automatically handled)
+ * @param {plugins} Plugins that enhance KeenSlider options
+ * @returns {Object} An object of useful helpers
+ * @returns {create} Register and creation function to call on setup
+ * @returns {current} Current slide number
+ * @returns {next} Function to trigger the next slide
+ * @returns {prev} Function to trigger the previous slide
+ * @returns {moveTo} Allow you to change the slider to a specific slide
+ * @returns {refresh} Refresh trigger
+ * @returns {details} Retrieve a list of SliderDetails
+ * @returns {slider} Gain access to the slider itself
+ * @returns {destroy} Destroy the entire slider (this is automatically handled)
  *
  * @example
  * ```ts
- * const [create] = createSlider();
+ * const [create, { prev, next }] = createSlider();
  * <div use:slider>...</div>
  * ```
  */
-const createSlider = (
-  options: SliderOptions = {}
+const createSlider = <
+  O = {},
+  P = {},
+  H extends string = KeenSliderHooks
+>(
+  options?: KeenSliderOptions<O, P, H>,
+  plugins?: KeenSliderPlugin<O, P, H>[]
 ): [
-  (el: HTMLElement) => void,
-  {
-    current: () => number;
-    next: () => void;
-    prev: () => void;
-    moveTo: (id: number, duration?: number) => void;
-    resize: () => void;
-    refresh: () => void;
-    details: () => SliderDetails;
-    slider: () => KeenSlider;
-    destroy: () => void;
+  create: (el: HTMLElement) => void,
+  helpers: {
+    current: Accessor<number>;
+    next: Accessor<void>;
+    prev: Accessor<void>;
+    moveTo: (
+      id: number,
+      duration?: number,
+      absolute?: boolean,
+      easing?: (t: number) => number
+    ) => void;
+    details: Accessor<TrackDetails>;
+    slider: Accessor<KeenSliderInstance<O, P, H> | undefined>;
+    destroy: Accessor<void>;
   }
 ] => {
-  let slider: KeenSlider;
+  let slider: KeenSliderInstance<O, P, H> | undefined;
   const [current, setCurrent] = createSignal(0);
   const destroy = () => slider && slider.destroy();
+  // Slider creation method and directive function
   const create = (el: HTMLElement) => {
-    let opts = { ...options };
-    // @ts-ignore
-    opts.slides = el.childNodes;
-    opts.slideChanged = instance => {
-      options.slideChanged && options.slideChanged(instance);
-      setCurrent(instance.details().relativeSlide);
-    };
     el.classList.add("keen-slider");
-    onMount(() => (slider = new KeenSlider(el, opts)));
+    // @ts-ignore
+    const opts: Accessor<KeenSliderOptions<O, P, H> | undefined> = () => ({ selector: el.childNodes, ...options });
+    onMount(() => {
+      slider = new KeenSlider<O, P, H>(el, opts(), plugins);
+      slider.on('slideChanged', () => 
+        setCurrent(slider!.track.details.rel)
+      )
+    });
     onCleanup(destroy);
+    createEffect(on(() => options, () => slider && slider.update(opts())));
   };
   return [
     create,
     {
       current,
-      next: () => slider.next(),
-      prev: () => slider.prev(),
-      moveTo: (id: number, duration = 250) => slider.moveToSlide(id, duration),
-      resize: () => slider.resize(),
-      refresh: () => slider.refresh(),
-      details: () => slider.details(),
+      next: () => slider && slider.next(),
+      prev: () => slider && slider.prev(),
+      details: () => slider ? slider.track.details : {} as TrackDetails,
       slider: () => slider,
+      moveTo: (
+        id: number,
+        duration = 250,
+        absolute = false,
+        easing?: (t: number) => number
+      ) => slider?.moveToIdx(id, absolute, { duration, easing: easing }),
       destroy
     }
   ];
