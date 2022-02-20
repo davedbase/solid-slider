@@ -1,0 +1,50 @@
+import { Accessor, createEffect } from "solid-js";
+import createTimer, { Schedule } from "@solid-primitives/timer";
+import { KeenSliderInstance } from "keen-slider";
+
+/**
+ * Provides an autoplay plugin.
+ *
+ * @param {number} interval Interval in milliseconds for switching slides
+ * @param {object} options Options to customize the autoplay
+ * @param {Function} options.pause A pause signal to control the autoplay
+ * @param {boolean} options.pauseOnDrag Denotes of the autoplay should pause on drag.
+ * @param {object} options.animation Allows for control of duration and easing.
+ * @param {number} options.duration Duration for transitioning the slide.
+ * @param {number} options.easing Easing function for the transition animation.
+ *
+ * @example
+ * ```ts
+ * const [create, { prev, next }] = createSlider();
+ * <div use:slider>...</div>
+ * ```
+ */
+const autoplay = (
+  interval: number = 1000,
+  options: {
+    pause?: Accessor<boolean>;
+    pauseOnDrag?: boolean;
+    animation?: {
+      duration?: number;
+      easing?: (t: number) => number;
+    };
+  }
+) => {
+  return (slider: KeenSliderInstance) => {
+    let clear: Function;
+    const start = () => {
+      clear = createTimer(
+        () => slider.moveToIdx(slider.track.details.position + 1, true, options.animation),
+        interval,
+        Schedule.Interval
+      );
+    };
+    // Pause the slider on drag
+    if (options.pauseOnDrag || true) {
+      slider.on("dragStarted", () => clear());
+    }
+    createEffect(() => (!options.pause || options.pause() === false ? start() : clear()));
+  };
+};
+
+export default autoplay;

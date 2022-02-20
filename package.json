@@ -1,7 +1,7 @@
 {
   "name": "solid-slider",
-  "version": "1.1.1",
-  "description": "A slider/carousel component for Solid powered by KeenSlider.",
+  "version": "1.2.5",
+  "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "license": "ISC",
   "bugs": {
@@ -16,6 +16,10 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./plugins/autoplay": "./dist/plugins/autoplay.js"
+  },
   "types": "dist/index.d.ts",
   "sideEffects": "false",
   "files": [
@@ -38,12 +42,13 @@
     "plugin"
   ],
   "dependencies": {
+    "@solid-primitives/timer": "^1.1.0",
     "keen-slider": "^6.6.3",
     "rimraf": "^3.0.2",
     "solid-js": "^1.3.5",
     "typescript": "^4.5.5"
   },
   "devDependencies": {
-    "prettier": "^2.4.1"
+    "prettier": "^2.5.1"
   }
 }

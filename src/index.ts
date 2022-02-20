@@ -38,7 +38,7 @@ declare module "solid-js" {
  */
 const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>(
   options?: KeenSliderOptions<O, P, H> | Accessor<KeenSliderOptions<O, P, H>>,
-  plugins?: KeenSliderPlugin<O, P, H>[]
+  ...plugins: KeenSliderPlugin<O, P, H>[]
 ): [
   create: (el: HTMLElement) => void,
   helpers: {
@@ -65,18 +65,17 @@ const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>(
     // @ts-ignore
     const opts: Accessor<KeenSliderOptions<O, P, H> | undefined> = () => ({
       selector: el.childNodes,
-      ...(typeof options == 'function' ? options() : options)
+      ...(typeof options == "function" ? options() : options)
     });
     onMount(() => {
       slider = new KeenSlider<O, P, H>(el, opts(), plugins);
       slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
     });
     onCleanup(destroy);
-    // Only watch the options of an accessor is provided
-    if (typeof options === 'function') {
+    if (typeof options === "function") {
       createEffect(
         on(
-          () => options(),
+          () => options,
           () => slider && slider.update(opts())
         )
       );
