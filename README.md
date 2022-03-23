@@ -16,7 +16,7 @@ yarn add solid-slider ## or in yarn
 Add as a module:
 
 ```ts
-import "solid-slider/dist/slider.css";
+import "solid-slider/slider.css";
 import createSlider from "solid-slider";
 ```
 
@@ -96,6 +96,7 @@ Thie library exports it's own CSS which is the basic KeenSlider implementation f
 - 1.0.3 - Changed the exported API to be slightly more flexible.
 - 1.1.1 - Upgraded to KeenSlider 6 and improved general reactivity.
 - 1.2.5 - Added autoplay plugin and general plugin structure
+- 1.2.6 - Maybe I should actually export the .css? That'd be a good idea, right?
 
 ## Keen Options API
 

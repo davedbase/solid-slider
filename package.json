@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "license": "ISC",
@@ -18,7 +18,8 @@
   "module": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./plugins/autoplay": "./dist/plugins/autoplay.js"
+    "./plugins/autoplay": "./dist/plugins/autoplay.js",
+    "./slider.css": "./dist/slider.css"
   },
   "types": "dist/index.d.ts",
   "sideEffects": "false",
