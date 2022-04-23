@@ -6,6 +6,8 @@
 
 A carousel/slider implementation in TypeScript for SolidJS. It's built on Keen-Slider 6, an open-source library agnostic touch slider with native touch/swipe behavior and great performance. It comes with no dependencies, TypeScript support, multitouch support and is compatible with all common browsers.
 
+This package providers both primitive & directive as well as components. You may use either according to your preference. Note that for better SSR support, the component is recommended over the directive.
+
 ## Installation
 
 ```bash
@@ -13,11 +15,11 @@ npm install solid-slider --save
 yarn add solid-slider ## or in yarn
 ```
 
-Add as a module:
+Import either the directive or component as you'd like:
 
 ```ts
 import "solid-slider/slider.css";
-import createSlider from "solid-slider";
+import { Slider, createSlider } from "solid-slider";
 ```
 
 ## Demo
@@ -31,6 +33,102 @@ Plugins may be added directly via the createSlider primitive. You may add a Keen
 - Slider nav (dot, arrow controls even thumbnails)
 - Lazy loaded images
 - Slide transitions
+
+Details on applying plugins are available for each use below.
+
+## Use as Component
+
+The following is an example of how to use the component.
+
+```tsx
+const MyComponent = () => {
+  return (
+    <Slider options={{ loop: true }}>
+      <div>Slide 1</div>
+      <div>Slide 2</div>
+      <div>Slide 3</div>
+    </Slider>
+  );
+};
+```
+
+You may also use the next and previous button. Note that you must wrap your `Slider` with `SliderProvider`.
+
+```tsx
+const MyComponent = () => {
+  return (
+    <SliderProvider>
+      <Slider options={{ loop: true }}>
+        <div>Slide 1</div>
+        <div>Slide 2</div>
+        <div>Slide 3</div>
+      </Slider>
+      <SliderButton prev>Previous</SliderButton>
+      <SliderButton next>Next</SliderButton>
+    <SliderProvider>
+  );
+};
+```
+
+### Autoplay Plugin
+
+You may include the autoplay plugin by providing it as a prop:
+
+```tsx
+import createSlider from "solid-slider";
+import autoplay from "solid-slider/plugins/autoplay";
+
+const MyComponent = () => {
+  return (
+    <Slider options={{ loop: true }} plugins={[autoplay(1500, {})]}>
+      <div class="slide1">1</div>
+      <div class="slide2">2</div>
+      <div class="slide3">3</div>
+      <div class="slide4">4</div>
+      <div class="slide5">5</div>
+      <div class="slide6">6</div>
+    </Slider>
+  );
+};
+```
+
+## Use as Primitive
+
+The following is an example of how to create and then bind options using a directive.
+
+```tsx
+const MyComponent = () => {
+  const options = { duration: 1000 };
+  const [slider, { current, next, prev, moveTo }] = createSlider(options);
+  return (
+    <div use:slider>
+      <div>Slide 1</div>
+      <div>Slide 2</div>
+      <div>Slide 3</div>
+    </div>
+  );
+};
+```
+
+or without a directive:
+
+```tsx
+const MyComponent = () => {
+  let ref: HTMLElement;
+  const options = { duration: 1000 };
+  const [slider, { current, next, prev, moveTo }] = createSlider(options);
+  onMount(() => {
+    slider(ref);
+  });
+  return (
+    <div ref={ref}>
+      <div>Slide 1</div>
+      <div>Slide 2</div>
+      <div>Slide 3</div>
+    </div>
+  );
+};
+```
 
 ### Autoplay
 
@@ -50,44 +148,6 @@ const [slider] = createSlider(
 );
 ```
 
-## Example
-
-The following is an example of how to create and then bind options using a directive.
-
-```ts
-const MyComponent = () => {
-  const options = { duration: 1000 };
-  const [slider, { current, next, prev, moveTo }] = createSlider(options);
-  return (
-    <div use:slider>
-      <div>Slide 1</div>
-      <div>Slide 2</div>
-      <div>Slide 3</div>
-    </div>
-  );
-};
-```
-
-or without a directive:
-
-```ts
-const MyComponent = () => {
-  let ref: HTMLElement;
-  const options = { duration: 1000 };
-  const [slider, { current, next, prev, moveTo }] = createSlider(options);
-  onMount(() => {
-    slider(ref);
-  });
-  return (
-    <div ref={ref}>
-      <div>Slide 1</div>
-      <div>Slide 2</div>
-      <div>Slide 3</div>
-    </div>
-  );
-};
-```
-
 ## Implementation
 
 Solid Slider is meant to be a lightweight and compact wrapper of Keen-Slider. It exposes helpers to make working with the slider convenient. Note that the when the slider mounts it assumes all children in the el are slides. You can override this functionality by passing in a "selector" value to target the specific slides you'd like to include.
@@ -99,9 +159,10 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.0.0 - Initial release
 - 1.0.3 - Changed the exported API to be slightly more flexible.
 - 1.1.1 - Upgraded to Keen-Slider 6 and improved general reactivity.
-- 1.2.5 - Added autoplay plugin and general plugin structure
-- 1.2.7 - Maybe I should actually export the .css? That'd be a good idea, right?
+- 1.2.5 - Added autoplay plugin and general plugin structure.
+- 1.2.7 - Maybe I should actually export the .css? That'd be a good idea, right? /s
 - 1.2.9 - Updated timer primitive and patched issue with current slide setting from initial options.
+- 1.3.0 - Introduced Slider, SliderProvider and SliderButton for ease.
 
 ## Keen Options API
 

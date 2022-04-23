@@ -3,11 +3,18 @@
     "outDir": "./dist",
     "emitDeclarationOnly": false,
     "declaration": true,
-    "target": "esnext",
+    "module": "ESNext",
+    "target": "ESNext",
     "newLine": "LF",
     "moduleResolution": "node",
     "strict": true,
-    "jsx": "preserve"
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": [
+      "solid-js"
+    ]
   },
   "include": [
     "./src"
