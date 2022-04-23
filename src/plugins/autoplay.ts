@@ -1,5 +1,5 @@
 import { Accessor, createEffect } from "solid-js";
-import createTimer, { Schedule } from "@solid-primitives/timer";
+import { makeTimer } from "@solid-primitives/timer";
 import { KeenSliderInstance } from "keen-slider";
 
 /**
@@ -31,19 +31,19 @@ const autoplay = (
   }
 ) => {
   return (slider: KeenSliderInstance) => {
-    let clear: Function;
+    let dispose: Function;
     const start = () => {
-      clear = createTimer(
+      dispose = makeTimer(
         () => slider.moveToIdx(slider.track.details.position + 1, true, options.animation),
         interval,
-        Schedule.Interval
+        setInterval
       );
     };
     // Pause the slider on drag
     if (options.pauseOnDrag || true) {
-      slider.on("dragStarted", () => clear());
+      slider.on("dragStarted", () => dispose());
     }
-    createEffect(() => (!options.pause || options.pause() === false ? start() : clear()));
+    createEffect(() => (!options.pause || options.pause() === false ? start() : dispose()));
   };
 };
 

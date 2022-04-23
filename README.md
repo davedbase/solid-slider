@@ -101,6 +101,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.1.1 - Upgraded to Keen-Slider 6 and improved general reactivity.
 - 1.2.5 - Added autoplay plugin and general plugin structure
 - 1.2.7 - Maybe I should actually export the .css? That'd be a good idea, right?
+- 1.2.9 - Updated timer primitive and patched issue with current slide setting from initial options.
 
 ## Keen Options API
 

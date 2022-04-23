@@ -70,6 +70,7 @@ const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>(
     onMount(() => {
       slider = new KeenSlider<O, P, H>(el, opts(), plugins);
       slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
+      setCurrent(slider!.track.details.rel);
     });
     onCleanup(destroy);
     if (typeof options === "function") {

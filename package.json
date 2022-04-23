@@ -1,35 +1,33 @@
 {
   "name": "solid-slider",
-  "version": "1.2.7",
+  "version": "1.2.9",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
+  "repository": {
+    "type": "git",
+    "url": "git+https://davedbase@github.com/davedbase/solid-slider.git"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/davedbase/solid-slider/issues"
   },
   "homepage": "https://github.com/davedbase/solid-slider#readme",
   "scripts": {
-    "prebuild": "npm run clean",
-    "clean": "rimraf dist/",
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "build": "tsc && cp src/slider.css dist/slider.css"
+    "build": "tsup && cp src/slider.css dist/slider.css"
   },
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "dist/index.mjs",
   "exports": {
     ".": "./dist/index.js",
     "./plugins/autoplay": "./dist/plugins/autoplay.js",
     "./slider.css": "./dist/slider.css"
   },
   "types": "dist/index.d.ts",
-  "sideEffects": "false",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://davedbase@github.com/davedbase/solid-slider.git"
-  },
   "keywords": [
     "slider",
     "carousel",
@@ -43,13 +41,13 @@
     "plugin"
   ],
   "dependencies": {
-    "@solid-primitives/timer": "^1.1.0",
-    "keen-slider": "^6.6.3",
-    "rimraf": "^3.0.2",
-    "solid-js": "^1.3.5",
-    "typescript": "^4.5.5"
+    "@solid-primitives/timer": "1.3.0",
+    "keen-slider": "^6.6.10",
+    "solid-js": "^1.3.16"
   },
   "devDependencies": {
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "tsup": "^5.12.6",
+    "typescript": "^4.5.5"
   }
 }
