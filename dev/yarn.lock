@@ -291,10 +291,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@solid-primitives/context@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@solid-primitives/context/-/context-0.1.0.tgz#a7b122bb3364498729a6f9cd175a02efa455c760"
-  integrity sha512-OTPSv00OErONieh/rdvWXqgSB4EHIXHkwvnsgUX5kZO0A5BMbkjcbXzwCbx3hRlLDfNteHd8ovzyKFo5oqA5kA==
+"@solid-primitives/timer@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@solid-primitives/timer/-/timer-1.3.0.tgz#ee0b35b430f23501159dca37e0f712d87f3b3473"
+  integrity sha512-6qPr9Hv6vx9j1zUVTV+5UlqXYxh86iuvT9Dt2KQNRuqnnHJs2sX9vqgbgL1AbAW/0rIa+R0fONSyEtItDWjVLg==
 
 ansi-styles@^3.2.1:
   version "3.2.1"
@@ -585,6 +585,11 @@ json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
+keen-slider@^6.6.10:
+  version "6.6.10"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.6.10.tgz#728cabd7b81e5a71fa480656aba3ef974ad7c2eb"
+  integrity sha512-1OwX8DfPiMCcPKVlo3Glw0FxrGbjaiy6wP8KN7bDkNbVmgxmcrODbFZYW5nA5LsF0VKho4unIDR6wCMUKZOEpA==
+
 merge-anything@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/merge-anything/-/merge-anything-5.0.2.tgz#b023af9b8f48e2fc71eb859d4ad834ba667f4150"
@@ -653,7 +658,7 @@ semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-solid-js@^1.3.13, solid-js@^1.3.3:
+solid-js@^1.3.13, solid-js@^1.3.16, solid-js@^1.3.3:
   version "1.3.16"
   resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.3.16.tgz#b4c410a4de73464a0fd5d97ca5d17a5f92a9c1e7"
   integrity sha512-ks9wrUFLx2vzXnR+yXLtL/qO++lixueYsPb9baN0jMNpe1nzAdZn8AbodCmDu9yLPrA7oEFt5CYnzN6/MwtswA==
@@ -666,6 +671,15 @@ solid-refresh@^0.4.0:
     "@babel/generator" "^7.16.0"
     "@babel/helper-module-imports" "^7.16.0"
     "@babel/types" "^7.16.0"
+
+solid-slider@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/solid-slider/-/solid-slider-1.3.1.tgz#604c7bf3e7ad4e987da4a8419ed8d604244d971e"
+  integrity sha512-1rT9/69FZ14UPrObsMDJRR+5pvYdOm4NUEgOd6sIv5nQ1/Mh2iMtJow/nNRjT0cdVETG5qye2mUyvTh/FY9cQQ==
+  dependencies:
+    "@solid-primitives/timer" "1.3.0"
+    keen-slider "^6.6.10"
+    solid-js "^1.3.16"
 
 source-map-js@^1.0.2:
   version "1.0.2"

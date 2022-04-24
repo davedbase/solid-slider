@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "repository": {
@@ -14,16 +14,28 @@
   "homepage": "https://github.com/davedbase/solid-slider#readme",
   "scripts": {
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "build": "tsup && cp src/slider.css dist/slider.css"
+    "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index/index.common.js",
+  "module": "dist/index/index.module.js",
+  "types": "dist/index/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./plugins/autoplay": "./dist/plugins/autoplay.js",
+    ".": {
+      "solid": "./dist/index/index.jsx",
+      "import": "./dist/index/index.module.js",
+      "browser": "./dist/index/index.module.js",
+      "require": "./dist/index/index.common.js",
+      "node": "./dist/index/index.common.js"
+    },
+    "./plugins/autoplay":  {
+      "solid": "./dist/autoplay/autoplay.jsx",
+      "import": "./dist/autoplay/index.module.js",
+      "browser": "./dist/autoplay/index.module.js",
+      "require": "./dist/autoplay/index.common.js",
+      "node": "./dist/autoplay/index.common.js"
+    },
     "./slider.css": "./dist/slider.css"
   },
-  "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist"
@@ -41,15 +53,15 @@
     "plugin"
   ],
   "dependencies": {
-    "@solid-primitives/context": "^0.1.0",
     "@solid-primitives/timer": "1.3.0",
-    "esbuild-plugin-solid": "^0.4.2",
     "keen-slider": "^6.6.10",
     "solid-js": "^1.3.16"
   },
   "devDependencies": {
+    "esbuild-plugin-solid": "^0.4.2",
+    "rollup": "^2.70.2",
+    "rollup-preset-solid": "^1.4.0",
     "prettier": "^2.5.1",
-    "tsup": "^5.12.6",
     "typescript": "^4.5.5"
   }
 }
