@@ -57,27 +57,27 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
   }
 ] => {
   let slider: KeenSliderInstance<O, P, H> | undefined;
-  const [current, setCurrent] = createSignal(0);
+  const opts = () => typeof options == "function" ? options() : options;
+  const [current, setCurrent] = createSignal(opts()?.initial || 0);
   const destroy = () => slider && slider.destroy();
   // Slider creation method and directive function
   const create = (el: HTMLElement) => {
     el.classList.add("keen-slider");
     // @ts-ignore
-    const opts: Accessor<KeenSliderOptions<O, P, H> | undefined> = () => ({
+    const getOptions: Accessor<KeenSliderOptions<O, P, H> | undefined> = () => ({
       selector: el.childNodes,
-      ...(typeof options == "function" ? options() : options)
+      ...(opts())
     });
     onMount(() => {
-      slider = new KeenSlider<O, P, H>(el, opts(), plugins);
+      slider = new KeenSlider<O, P, H>(el, getOptions(), plugins);
       slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
-      setCurrent(slider!.track.details.rel);
     });
     onCleanup(destroy);
     if (typeof options === "function") {
       createEffect(
         on(
           () => options,
-          () => slider && slider.update(opts())
+          () => slider && slider.update(getOptions())
         )
       );
     }
