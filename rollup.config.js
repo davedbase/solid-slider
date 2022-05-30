@@ -9,4 +9,8 @@ export default withSolid([
     input: "src/plugins/autoplay.tsx",
     targets: ["esm", "cjs"]
   },
+  {
+    input: "src/plugins/adaptiveHeight.tsx",
+    targets: ["esm", "cjs"]
+  },
 ]);

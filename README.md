@@ -154,6 +154,15 @@ Solid Slider is meant to be a lightweight and compact wrapper of Keen-Slider. It
 
 Thie library exports it's own CSS which is the basic Keen-Slider implementation for convenience. If you supply options as an accessor function, the slider will reactively update the configuration so that you don't have to destroy and recreate the slider. As of Keen-Slider 6 plugins are now fully supported. You may supply them as a param in createSlider. Note that plugins are not reactively updated and must be supplied on creation.
 
+## Roadmap
+
+- [ ] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
+- [ ] Add Dots components (to display a row of dots below the slider)
+- [ ] Add slider thumbnail navigation
+- [ ] Add slider loader
+- [ ] Build [timepicker](https://keen-slider.io/examples#timepicker) component
+- [ ] Create [Scroll Wheel](https://keen-slider.io/examples#scroll-wheel-controls) component
+
 ## Changelog
 
 - 1.0.0 - Initial release

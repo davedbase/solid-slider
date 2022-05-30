@@ -14,7 +14,7 @@
   "homepage": "https://github.com/davedbase/solid-slider#readme",
   "scripts": {
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css"
+    "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css && cp src/plugins/adaptiveHeight.css dist/adaptiveHeight/style.css"
   },
   "main": "dist/index/index.common.js",
   "module": "dist/index/index.module.js",
@@ -34,7 +34,15 @@
       "require": "./dist/autoplay/index.common.js",
       "node": "./dist/autoplay/index.common.js"
     },
-    "./slider.css": "./dist/slider.css"
+    "./plugins/adaptiveHeight":  {
+      "solid": "./dist/adaptiveHeight/autoplay.jsx",
+      "import": "./dist/adaptiveHeight/index.module.js",
+      "browser": "./dist/adaptiveHeight/index.module.js",
+      "require": "./dist/adaptiveHeight/index.common.js",
+      "node": "./dist/adaptiveHeight/index.common.js"
+    },
+    "./slider.css": "./dist/slider.css",
+    "./adaptiveHeight/style.css": "./dist/adaptiveHeight/slider.css"
   },
   "sideEffects": false,
   "files": [

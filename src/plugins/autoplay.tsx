@@ -15,8 +15,7 @@ import { KeenSliderInstance } from "keen-slider";
  *
  * @example
  * ```ts
- * const [create, { prev, next }] = createSlider();
- * <div use:slider>...</div>
+ * const [create] = createSlider({}, [autoplay]);
  * ```
  */
 const autoplay = (
