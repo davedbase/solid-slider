@@ -173,6 +173,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.2.9 - Updated timer primitive and patched issue with current slide setting from initial options.
 - 1.3.1 - Introduced Slider, SliderProvider and SliderButton for ease.
 - 1.3.2 - Patched issue with initial slide not setting current signal.
+- 1.3.5 - Updated to latest SolidJS version.
 
 ## Keen Options API
 

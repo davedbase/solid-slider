@@ -1050,11 +1050,6 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@solid-primitives/timer@1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@solid-primitives/timer/-/timer-1.3.0.tgz#ee0b35b430f23501159dca37e0f712d87f3b3473"
-  integrity sha512-6qPr9Hv6vx9j1zUVTV+5UlqXYxh86iuvT9Dt2KQNRuqnnHJs2sX9vqgbgL1AbAW/0rIa+R0fONSyEtItDWjVLg==
-
 "@types/estree@*":
   version "0.0.51"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.51.tgz#cfd70924a25a3fd32b218e5e420e6897e1ac4f40"
@@ -1724,11 +1719,6 @@ json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
-keen-slider@^6.6.10:
-  version "6.6.14"
-  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.6.14.tgz#f34cb40ab6f4702bc930132c95f5a7cf520e1b00"
-  integrity sha512-G8vg8axjy9V5CTxtpF2HHa1oXem0OWSK9rcW7yIeKhUyp3JTHYSs+pwJgJCOYkBhfA+znJZfMd6qcU00BL3CWw==
-
 kolorist@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.5.1.tgz#c3d66dc4fabde4f6b7faa6efda84c00491f9e52b"
@@ -2057,10 +2047,15 @@ solid-app-router@^0.3.1:
   resolved "https://registry.yarnpkg.com/solid-app-router/-/solid-app-router-0.3.3.tgz#21e6ea3d317e7f01bcc73cdcdbf8523c8b2898ae"
   integrity sha512-JEn0gi6q8Pq9M2Ml3CLeNzenxuBrOrQg4aQyeIZTNjOAeEil/9YiaAJk+US78sIdVcqflTneN5KZgJMIGJ0rFQ==
 
-solid-js@^1.3.16, solid-js@^1.3.3, solid-js@^1.4.0:
+solid-js@^1.3.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.4.3.tgz#9805f894a832bced72f6fe1eb011973d15ce72f4"
   integrity sha512-3uh2cbT4ICronIasLAxycF6SVgvqcfwFCDCzlEA9CEahn1qQg8Rw8aRGiI4O51PrHcN5aPRO9knYYRCs0PgzcQ==
+
+solid-js@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.4.5.tgz#11083b273751b33cb766c22ad66001ed8daef239"
+  integrity sha512-32NGpuabEJDTeQ7fjaTR2TLC7R/X5hbqhYdEQ1e+GcIK8r8+/V0Nv17eZQii5Z/97/mtdt8yi63chzg73qnz/A==
 
 solid-meta@^0.27.3:
   version "0.27.5"
@@ -2075,15 +2070,6 @@ solid-refresh@^0.4.0:
     "@babel/generator" "^7.16.0"
     "@babel/helper-module-imports" "^7.16.0"
     "@babel/types" "^7.16.0"
-
-solid-slider@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/solid-slider/-/solid-slider-1.3.2.tgz#b2c91d2ff5a728ce70b3d29ccc52b9ea71ffc6e3"
-  integrity sha512-Nd8yAFTPnhtaURB3ZI+q2DBvT6UOtiDIENMCMhux0IfQFYy/4Cr1PBNw2ZQBWFCgWqEHgkUVSpUYtpei3TuoWQ==
-  dependencies:
-    "@solid-primitives/timer" "1.3.0"
-    keen-slider "^6.6.10"
-    solid-js "^1.3.16"
 
 solid-start-node@next, "solid-start-node@workspace:*":
   version "0.1.0-alpha.74"

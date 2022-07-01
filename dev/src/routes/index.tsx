@@ -1,6 +1,6 @@
 import { Component } from "solid-js";
-import { createSlider } from "solid-slider";
-// import { createSlider, Slider, SliderButton, SliderProvider } from "../../../src/index";
+// import { createSlider } from "solid-slider";
+import { createSlider, Slider, SliderButton, SliderProvider } from "../../../src/index";
 import autoplay from "../../../src/plugins/autoplay";
 
 import "./index.css";
