@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "1.3.3",
+  "version": "1.3.6",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "repository": {
@@ -27,14 +27,14 @@
       "require": "./dist/index/index.common.js",
       "node": "./dist/index/index.common.js"
     },
-    "./plugins/autoplay":  {
+    "./plugins/autoplay": {
       "solid": "./dist/autoplay/autoplay.jsx",
       "import": "./dist/autoplay/index.module.js",
       "browser": "./dist/autoplay/index.module.js",
       "require": "./dist/autoplay/index.common.js",
       "node": "./dist/autoplay/index.common.js"
     },
-    "./plugins/adaptiveHeight":  {
+    "./plugins/adaptiveHeight": {
       "solid": "./dist/adaptiveHeight/autoplay.jsx",
       "import": "./dist/adaptiveHeight/index.module.js",
       "browser": "./dist/adaptiveHeight/index.module.js",
@@ -62,14 +62,14 @@
   ],
   "dependencies": {
     "@solid-primitives/timer": "1.3.0",
-    "keen-slider": "^6.6.10",
-    "solid-js": "^1.4.5"
+    "keen-slider": "^6.7.0",
+    "solid-js": "^1.4.7"
   },
   "devDependencies": {
     "esbuild-plugin-solid": "^0.4.2",
+    "prettier": "^2.5.1",
     "rollup": "^2.70.2",
     "rollup-preset-solid": "^1.4.0",
-    "prettier": "^2.5.1",
     "typescript": "^4.5.5"
   }
 }

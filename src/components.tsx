@@ -1,4 +1,4 @@
-import { Component, createContext, useContext, createSignal, createMemo } from "solid-js";
+import { createContext, useContext, createSignal, FlowComponent } from "solid-js";
 import { createSlider } from "./primitive";
 import { KeenSliderOptions, KeenSliderPlugin } from "keen-slider";
 import { isServer } from "solid-js/web";
@@ -22,7 +22,7 @@ export const SliderContext = createContext(createSignal<SliderHelpers | null>(nu
  * @param props {KeenSliderOptions} options - Accepts all KeenSlider options.
  * @param props {KeenSLiderPlugin} plugins - A list of Solid Slider or Keen slider plugins.
  */
-export const SliderProvider: Component = props => (
+export const SliderProvider: FlowComponent = props => (
   <SliderContext.Provider value={createSignal(null)}>{props.children}</SliderContext.Provider>
 );
 
@@ -32,16 +32,20 @@ export const SliderProvider: Component = props => (
  * @param props {KeenSliderOptions} options - Accepts all KeenSlider options.
  * @param props {KeenSLiderPlugin} plugins - A list of Solid Slider or Keen slider plugins.
  */
-export const Slider: Component<{
+export const Slider: FlowComponent<{
   options?: KeenSliderOptions;
   plugins?: KeenSliderPlugin[];
 }> = props => {
-  if (isServer) return props.children;
+  if (isServer) return <div class="keen-slider">{props.children}</div>;
   const [, setHelpers] = useContext(SliderContext);
   const [slider, helpers] = createSlider(props.options || {}, ...(props.plugins || []));
   setHelpers(helpers);
   slider;
-  return <div use:slider>{props.children}</div>;
+  return (
+    <div use:slider class="keen-slider">
+      {props.children}
+    </div>
+  );
 };
 
 /**
@@ -52,7 +56,7 @@ export const Slider: Component<{
  * @param props {string} class - Class to override the button.
  * @param props {object} classList - List of classes to override the button.
  */
-export const SliderButton: Component<{
+export const SliderButton: FlowComponent<{
   next?: boolean;
   prev?: boolean;
   disabled?: boolean;
