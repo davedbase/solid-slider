@@ -42,9 +42,10 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
 ): [
   create: (el: HTMLElement) => void,
   helpers: {
+    slideCount: number;
     current: Accessor<number>;
-    next: Accessor<void>;
-    prev: Accessor<void>;
+    next: VoidFunction;
+    prev: VoidFunction;
     moveTo: (
       id: number,
       duration?: number,
@@ -53,7 +54,7 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
     ) => void;
     details: Accessor<TrackDetails>;
     slider: Accessor<KeenSliderInstance<O, P, H> | undefined>;
-    destroy: Accessor<void>;
+    destroy: VoidFunction;
   }
 ] => {
   let slider: KeenSliderInstance<O, P, H> | undefined;
@@ -74,17 +75,13 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
     });
     onCleanup(destroy);
     if (typeof options === "function") {
-      createEffect(
-        on(
-          () => options,
-          () => slider && slider.update(getOptions())
-        )
-      );
+      createEffect(() => slider && slider.update(getOptions()));
     }
   };
   return [
     create,
     {
+      get slideCount() { return slider ? slider.track.details.slidesLength : 0; },
       current,
       next: () => slider && slider.next(),
       prev: () => slider && slider.prev(),

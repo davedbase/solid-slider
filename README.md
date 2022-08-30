@@ -156,8 +156,9 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 
 ## Roadmap
 
-- [ ] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
-- [ ] Add Dots components (to display a row of dots below the slider)
+- [x] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
+- [x] Add Arrow components
+- [x] Add Dots components (to display a row of dots below the slider)
 - [ ] Add slider thumbnail navigation
 - [ ] Add slider loader
 - [ ] Build [timepicker](https://keen-slider.io/examples#timepicker) component
@@ -174,6 +175,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.1 - Introduced Slider, SliderProvider and SliderButton for ease.
 - 1.3.2 - Patched issue with initial slide not setting current signal.
 - 1.3.5 - Updated to latest SolidJS version.
+- 1.3.6 - Patched type errors and added Arrow and Dots and updated to KeenSlider 6.7.0.
 
 ## Keen Options API
 
