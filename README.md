@@ -181,6 +181,6 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 
 You can set options to the slider via parameters. Note that there are other hooks available as well. Only a subset of useful methods are exposed via the primitive although you can access the slider instance as well from the exports to use the methods directly.
 
-- [Options](https://keen-slider.io/api/#options)
-- [Event Hooks](https://keen-slider.io/api/#event-hooks)
-- [Methods](https://keen-slider.io/api/#methods)
+- [Options](https://keen-slider.io/docs#options)
+- [Event Hooks](https://keen-slider.io/docs#event-hooks)
+- [Methods](https://keen-slider.io/docs#methods)
