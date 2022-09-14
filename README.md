@@ -175,6 +175,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.2 - Patched issue with initial slide not setting current signal.
 - 1.3.5 - Updated to latest SolidJS version.
 - 1.3.7 - Fixed TS issues updated to latest KeenSlider.
+- 1.3.8 - Updated to Solid 1.5
 
 ## Keen Options API
 
