@@ -39,7 +39,7 @@ const autoplay = (
       );
     };
     // Pause the slider on drag
-    if (options.pauseOnDrag || true) {
+    if (options.pauseOnDrag !== false) {
       slider.on("dragStarted", () => dispose?.());
     }
     createEffect(() => (!options.pause || options.pause() === false ? start() : dispose?.()));
