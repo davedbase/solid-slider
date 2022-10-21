@@ -177,6 +177,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.7 - Fixed TS issues updated to latest KeenSlider.
 - 1.3.8 - Updated to Solid 1.5
 - 1.3.9 - Fixed Keen URLs, type issues and truthy error with autoplay (thanks [ishanAhuja](https://www.github.com/ishanAhuja) and [ahhshm](https://www.github.com/ahhshm))
+- 1.3.11 - Upgraded importance dependencies including Solid 1.6
 
 ## Keen Options API
 
