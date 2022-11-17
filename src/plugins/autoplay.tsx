@@ -33,7 +33,12 @@ const autoplay = (
     let dispose: Function;
     const start = () => {
       dispose = makeTimer(
-        () => slider.moveToIdx(slider.track.details.position + 1, true, options.animation),
+        () =>
+          slider.moveToIdx(
+            slider.track.details.position + 1,
+            true,
+            options.animation
+          ),
         interval,
         setInterval
       );
@@ -42,7 +47,9 @@ const autoplay = (
     if (options.pauseOnDrag !== false) {
       slider.on("dragStarted", () => dispose?.());
     }
-    createEffect(() => (!options.pause || options.pause() === false ? start() : dispose?.()));
+    createEffect(() =>
+      !options.pause || options.pause() === false ? start() : dispose?.()
+    );
   };
 };
 

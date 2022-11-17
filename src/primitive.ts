@@ -1,10 +1,18 @@
-import { on, onMount, createSignal, onCleanup, Accessor, createEffect } from "solid-js";
+import {
+  on,
+  onMount,
+  createSignal,
+  onCleanup,
+  Accessor,
+  createEffect,
+} from "solid-js";
+import { access } from "@solid-primitives/utils";
 import KeenSlider, {
   KeenSliderHooks,
   KeenSliderInstance,
   KeenSliderOptions,
   KeenSliderPlugin,
-  TrackDetails
+  TrackDetails,
 } from "keen-slider";
 
 declare module "solid-js" {
@@ -36,7 +44,11 @@ declare module "solid-js" {
  * <div use:slider>...</div>
  * ```
  */
-export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>(
+export const createSlider = <
+  O = {},
+  P = {},
+  H extends string = KeenSliderHooks
+>(
   options?: KeenSliderOptions<O, P, H> | Accessor<KeenSliderOptions<O, P, H>>,
   ...plugins: KeenSliderPlugin<O, P, H>[]
 ): [
@@ -54,32 +66,34 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
     details: Accessor<TrackDetails>;
     slider: Accessor<KeenSliderInstance<O, P, H> | undefined>;
     destroy: Accessor<void>;
+    update: VoidFunction;
   }
 ] => {
   let slider: KeenSliderInstance<O, P, H> | undefined;
-  const opts = () => typeof options == "function" ? options() : options;
+  let el: HTMLElement;
+  const opts = () => access(options);
   const [current, setCurrent] = createSignal(opts()?.initial || 0);
   const destroy = () => slider && slider.destroy();
+  const getOptions: Accessor<KeenSliderOptions<O, P, H> | undefined> = (
+    overrides = {}
+  // @ts-ignore
+  ) => ({
+    selector: el.childNodes,
+    ...opts(),
+    ...overrides,
+  });
+  const update = () => slider?.update(getOptions());
   // Slider creation method and directive function
-  const create = (el: HTMLElement) => {
+  const create = (newEl: HTMLElement) => {
+    el = newEl;
     el.classList.add("keen-slider");
-    // @ts-ignore
-    const getOptions: Accessor<KeenSliderOptions<O, P, H> | undefined> = () => ({
-      selector: el.childNodes,
-      ...(opts())
-    });
     onMount(() => {
       slider = new KeenSlider<O, P, H>(el, getOptions(), plugins);
       slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
     });
     onCleanup(destroy);
     if (typeof options === "function") {
-      createEffect(
-        on(
-          () => options,
-          () => slider && slider.update(getOptions())
-        )
-      );
+      createEffect(on(() => options, update));
     }
   };
   return [
@@ -90,9 +104,14 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
       prev: () => slider && slider.prev(),
       details: () => (slider ? slider.track.details : ({} as TrackDetails)),
       slider: () => slider,
-      moveTo: (id: number, duration = 250, absolute = false, easing?: (t: number) => number) =>
-        slider?.moveToIdx(id, absolute, { duration, easing: easing }),
-      destroy
-    }
+      moveTo: (
+        id: number,
+        duration = 250,
+        absolute = false,
+        easing?: (t: number) => number
+      ) => slider?.moveToIdx(id, absolute, { duration, easing: easing }),
+      destroy,
+      update,
+    },
   ];
 };

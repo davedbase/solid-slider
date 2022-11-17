@@ -1,12 +1,13 @@
-import { Component } from "solid-js";
+import { Component, createSignal, For } from "solid-js";
 // import { createSlider } from "solid-slider";
-import { createSlider, Slider, SliderButton, SliderProvider } from "../../../src/index";
+import { Slider, SliderButton, SliderProvider } from "../../../src/index";
 import autoplay from "../../../src/plugins/autoplay";
 
 import "./index.css";
 import "../../../src/slider.css";
 
 const App: Component = () => {
+  const [childs, setChildren] = createSignal([1, 2, 3]);
   return (
     <SliderProvider>
       <Slider
@@ -16,15 +17,16 @@ const App: Component = () => {
         }}
         plugins={[autoplay(1500, {})]}
       >
-        <div class="slide1">1</div>
-        <div class="slide2">2</div>
-        <div class="slide3">3</div>
-        <div class="slide4">4</div>
-        <div class="slide5">5</div>
-        <div class="slide6">6</div>
+        <For each={childs()}>
+          {(item: number) => <div class={`slide${item}`}>{item}</div>}
+        </For>
       </Slider>
+      <button onClick={() => setChildren([1, 2, 3, 4, 5])}>Add Slides</button>
       <SliderButton prev>Previous</SliderButton>
       <SliderButton next>Next</SliderButton>
+      <br />
+      <br />
+    <b>Slide Count:</b>{JSON.stringify(childs())}
     </SliderProvider>
   );
 };
