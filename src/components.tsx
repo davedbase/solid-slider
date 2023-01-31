@@ -47,6 +47,7 @@ export const SliderProvider: FlowComponent = (props) => (
 export const Slider: FlowComponent<{
   options?: KeenSliderOptions;
   plugins?: KeenSliderPlugin[];
+  classList?:string
 }> = (props) => {
   if (isServer) return <div class="keen-slider">{props.children}</div>;
   const [, setHelpers] = useContext(SliderContext);
@@ -64,7 +65,7 @@ export const Slider: FlowComponent<{
   );
   slider;
   return (
-    <div use:slider class="keen-slider">
+    <div use:slider class={`keen-slider ${props.classList}`}>
       {props.children}
     </div>
   );
