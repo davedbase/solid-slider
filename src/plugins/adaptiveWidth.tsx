@@ -1,6 +1,4 @@
-import { Accessor, createEffect } from "solid-js";
-import { makeTimer } from "@solid-primitives/timer";
-import { KeenSliderInstance } from "keen-slider";
+import { KeenSliderInstance } from 'keen-slider';
 
 /**
  * Adaptive width is a plugin that adjusts the width of the slider to the content on change.
@@ -10,15 +8,12 @@ import { KeenSliderInstance } from "keen-slider";
  * const [create] = createSlider({}, [adaptiveWidth]);
  * ```
  */
-const adaptiveWidth = () => {
+export const adaptiveWidth = () => {
   return (slider: KeenSliderInstance) => {
     function updateWidth() {
-      slider.container.style.width =
-        slider.slides[slider.track.details.rel].offsetWidth + "px";
+      slider.container.style.width = slider.slides[slider.track.details.rel].offsetWidth + 'px';
     }
-    slider.on("created", updateWidth);
-    slider.on("slideChanged", updateWidth);
+    slider.on('created', updateWidth);
+    slider.on('slideChanged', updateWidth);
   };
 };
-
-export default adaptiveWidth;
