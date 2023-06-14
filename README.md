@@ -92,6 +92,44 @@ const MyComponent = () => {
 };
 ```
 
+### Adaptive Height Plugin
+
+You may include the adaptive height plugin by providing it as a prop:
+
+```tsx
+import createSlider from “solid-slider”;
+import autoplay from “solid-slider/plugins/adaptiveHeight”;
+
+const MyComponent = () => {
+  return (
+    <Slider options={{ loop: true }} plugins={[adaptiveHeight]}>
+      <div class=“slide1”>1</div>
+      <div class=“slide2”>2</div>
+      <div class=“slide3”>3</div>
+    </Slider>
+  );
+};
+```
+
+### Adaptive Width Plugin
+
+You may include the adaptive width plugin by providing it as a prop:
+
+```tsx
+import createSlider from “solid-slider”;
+import autoplay from “solid-slider/plugins/adaptiveWidth”;
+
+const MyComponent = () => {
+  return (
+    <Slider options={{ loop: true }} plugins={[adaptiveWidth]}>
+      <div class=“slide1”>1</div>
+      <div class=“slide2”>2</div>
+      <div class=“slide3”>3</div>
+    </Slider>
+  );
+};
+```
+
 ## Use as Primitive
 
 The following is an example of how to create and then bind options using a directive.
@@ -157,6 +195,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 ## Roadmap
 
 - [ ] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
+- [ ] Create adaptiveWidth plugin
 - [ ] Add Dots components (to display a row of dots below the slider)
 - [ ] Add slider thumbnail navigation
 - [ ] Add slider loader

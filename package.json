@@ -14,7 +14,7 @@
   "homepage": "https://github.com/davedbase/solid-slider#readme",
   "scripts": {
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css && cp src/plugins/adaptiveHeight.css dist/adaptiveHeight/style.css"
+    "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css && cp src/plugins/adaptiveHeight.css dist/adaptiveHeight/style.css cp src/plugins/adaptiveWidth.css dist/adaptiveWidth/style.css"
   },
   "type": "module",
   "main": "dist/index/index.common.js",

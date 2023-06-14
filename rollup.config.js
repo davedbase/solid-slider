@@ -13,4 +13,8 @@ export default withSolid([
     input: "src/plugins/adaptiveHeight.tsx",
     targets: ["esm", "cjs"]
   },
+  {
+    input: "src/plugins/adaptiveWidth.tsx",
+    targets: ["esm", "cjs"]
+  },
 ]);
