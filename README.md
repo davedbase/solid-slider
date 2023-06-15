@@ -18,8 +18,8 @@ yarn add solid-slider ## or in yarn
 Import either the directive or component as you'd like:
 
 ```ts
-import 'solid-slider/slider.css';
-import { Slider, createSlider } from 'solid-slider';
+import "solid-slider/slider.css";
+import { Slider, createSlider } from "solid-slider";
 ```
 
 ## Demo
@@ -75,8 +75,8 @@ const MyComponent = () => {
 You may include the autoplay plugin by providing it as a prop:
 
 ```tsx
-import createSlider from 'solid-slider';
-import autoplay from 'solid-slider/plugins/autoplay';
+import createSlider from "solid-slider";
+import autoplay from "solid-slider/plugins/autoplay";
 
 const MyComponent = () => {
   return (
@@ -173,15 +173,15 @@ const MyComponent = () => {
 The autoplay function extends the slider with pausable playing. You can even supply a signal to control toggling autoplay. [Click here](https://codesandbox.io/s/solid-slider-autoplay-plugin-h2wphk?file=/src/index.tsx) for a demo of autoplay.
 
 ```ts
-import createSlider from 'solid-slider';
-import autoplay from 'solid-slider/plugins/autoplay';
+import createSlider from "solid-slider";
+import autoplay from "solid-slider/plugins/autoplay";
 
 const [pause, togglePause] = createSignal(false);
 const [slider] = createSlider(
   { loop: true },
   autoplay(2000, {
     pause,
-    pauseOnDrag: true
+    pauseOnDrag: true,
   })
 );
 ```
@@ -218,6 +218,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.9 - Fixed Keen URLs, type issues and truthy error with autoplay (thanks [ishanAhuja](https://www.github.com/ishanAhuja) and [ahhshm](https://www.github.com/ahhshm))
 - 1.3.11 - Upgraded importance dependencies including Solid 1.6
 - 1.3.12 - Patched slider to reactively update on updating children
+- 1.3.13 - Incorporated adaptiveHeight plugin (thanks [joeygrable94](https://www.github.com/joeygrable94))
 
 ## Keen Options API
 
