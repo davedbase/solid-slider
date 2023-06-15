@@ -1,6 +1,6 @@
-import { Accessor, createEffect } from "solid-js";
-import { makeTimer } from "@solid-primitives/timer";
-import { KeenSliderInstance } from "keen-slider";
+import { makeTimer } from '@solid-primitives/timer';
+import { KeenSliderInstance } from 'keen-slider';
+import { Accessor, createEffect } from 'solid-js';
 
 /**
  * Provides an autoplay plugin.
@@ -18,7 +18,7 @@ import { KeenSliderInstance } from "keen-slider";
  * const [create] = createSlider({}, [autoplay]);
  * ```
  */
-const autoplay = (
+export const autoplay = (
   interval: number = 1000,
   options: {
     pause?: Accessor<boolean>;
@@ -33,24 +33,15 @@ const autoplay = (
     let dispose: Function;
     const start = () => {
       dispose = makeTimer(
-        () =>
-          slider.moveToIdx(
-            slider.track.details.position + 1,
-            true,
-            options.animation
-          ),
+        () => slider.moveToIdx(slider.track.details.position + 1, true, options.animation),
         interval,
         setInterval
       );
     };
     // Pause the slider on drag
     if (options.pauseOnDrag !== false) {
-      slider.on("dragStarted", () => dispose?.());
+      slider.on('dragStarted', () => dispose?.());
     }
-    createEffect(() =>
-      !options.pause || options.pause() === false ? start() : dispose?.()
-    );
+    createEffect(() => (!options.pause || options.pause() === false ? start() : dispose?.()));
   };
 };
-
-export default autoplay;

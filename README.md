@@ -18,8 +18,8 @@ yarn add solid-slider ## or in yarn
 Import either the directive or component as you'd like:
 
 ```ts
-import "solid-slider/slider.css";
-import { Slider, createSlider } from "solid-slider";
+import 'solid-slider/slider.css';
+import { Slider, createSlider } from 'solid-slider';
 ```
 
 ## Demo
@@ -75,8 +75,8 @@ const MyComponent = () => {
 You may include the autoplay plugin by providing it as a prop:
 
 ```tsx
-import createSlider from "solid-slider";
-import autoplay from "solid-slider/plugins/autoplay";
+import createSlider from 'solid-slider';
+import autoplay from 'solid-slider/plugins/autoplay';
 
 const MyComponent = () => {
   return (
@@ -87,6 +87,44 @@ const MyComponent = () => {
       <div class="slide4">4</div>
       <div class="slide5">5</div>
       <div class="slide6">6</div>
+    </Slider>
+  );
+};
+```
+
+### Adaptive Height Plugin
+
+You may include the adaptive height plugin by providing it as a prop:
+
+```tsx
+import createSlider from “solid-slider”;
+import autoplay from “solid-slider/plugins/adaptiveHeight”;
+
+const MyComponent = () => {
+  return (
+    <Slider options={{ loop: true }} plugins={[adaptiveHeight]}>
+      <div class=“slide1”>1</div>
+      <div class=“slide2”>2</div>
+      <div class=“slide3”>3</div>
+    </Slider>
+  );
+};
+```
+
+### Adaptive Width Plugin
+
+You may include the adaptive width plugin by providing it as a prop:
+
+```tsx
+import createSlider from “solid-slider”;
+import autoplay from “solid-slider/plugins/adaptiveWidth”;
+
+const MyComponent = () => {
+  return (
+    <Slider options={{ loop: true }} plugins={[adaptiveWidth]}>
+      <div class=“slide1”>1</div>
+      <div class=“slide2”>2</div>
+      <div class=“slide3”>3</div>
     </Slider>
   );
 };
@@ -135,15 +173,15 @@ const MyComponent = () => {
 The autoplay function extends the slider with pausable playing. You can even supply a signal to control toggling autoplay. [Click here](https://codesandbox.io/s/solid-slider-autoplay-plugin-h2wphk?file=/src/index.tsx) for a demo of autoplay.
 
 ```ts
-import createSlider from "solid-slider";
-import autoplay from "solid-slider/plugins/autoplay";
+import createSlider from 'solid-slider';
+import autoplay from 'solid-slider/plugins/autoplay';
 
 const [pause, togglePause] = createSignal(false);
 const [slider] = createSlider(
   { loop: true },
   autoplay(2000, {
     pause,
-    pauseOnDrag: true,
+    pauseOnDrag: true
   })
 );
 ```
@@ -156,7 +194,8 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 
 ## Roadmap
 
-- [ ] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
+- [x] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
+- [x] Create [adaptiveWidth](https://github.com/joeygrable94/solid-slider) plugin
 - [ ] Add Dots components (to display a row of dots below the slider)
 - [ ] Add slider thumbnail navigation
 - [ ] Add slider loader
