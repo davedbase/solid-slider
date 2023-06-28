@@ -219,6 +219,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.11 - Upgraded importance dependencies including Solid 1.6
 - 1.3.12 - Patched slider to reactively update on updating children
 - 1.3.13 - Incorporated adaptiveHeight plugin (thanks [joeygrable94](https://www.github.com/joeygrable94))
+- 1.3.14 - Patched npm packaging issue (thanks [joeygrable94 ](https://www.github.com/joeygrable94))
 
 ## Keen Options API
 
