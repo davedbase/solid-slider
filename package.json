@@ -36,14 +36,22 @@
       "node": "./dist/autoplay/index.common.js"
     },
     "./plugins/adaptiveHeight": {
-      "solid": "./dist/adaptiveHeight/autoplay.jsx",
+      "solid": "./dist/adaptiveHeight/adaptiveHeight.jsx",
       "import": "./dist/adaptiveHeight/index.module.js",
       "browser": "./dist/adaptiveHeight/index.module.js",
       "require": "./dist/adaptiveHeight/index.common.js",
       "node": "./dist/adaptiveHeight/index.common.js"
     },
+    "./plugins/adaptiveWidth": {
+      "solid": "./dist/adaptiveWidth/adaptiveWidth.jsx",
+      "import": "./dist/adaptiveWidth/index.module.js",
+      "browser": "./dist/adaptiveWidth/index.module.js",
+      "require": "./dist/adaptiveWidth/index.common.js",
+      "node": "./dist/adaptiveWidth/index.common.js"
+    },
     "./slider.css": "./dist/slider.css",
-    "./adaptiveHeight/style.css": "./dist/adaptiveHeight/slider.css"
+    "./adaptiveHeight/style.css": "./dist/adaptiveHeight/slider.css",
+    "./adaptiveWidth/style.css": "./dist/adaptiveWidth/slider.css"
   },
   "sideEffects": false,
   "files": [
