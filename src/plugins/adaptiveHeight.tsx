@@ -1,4 +1,4 @@
-import { KeenSliderInstance } from 'keen-slider';
+import { KeenSliderInstance } from "keen-slider";
 
 /**
  * Adaptive height is a plugin that adjusts the height of the slider to the content on change.
@@ -11,9 +11,10 @@ import { KeenSliderInstance } from 'keen-slider';
 export const adaptiveHeight = () => {
   return (slider: KeenSliderInstance) => {
     function updateHeight() {
-      slider.container.style.height = slider.slides[slider.track.details.rel].offsetHeight + 'px';
+      slider.container.style.height =
+        slider.slides[slider.track.details.rel].offsetHeight + "px";
     }
-    slider.on('created', updateHeight);
-    slider.on('slideChanged', updateHeight);
+    slider.on("created", updateHeight);
+    slider.on("slideChanged", updateHeight);
   };
 };

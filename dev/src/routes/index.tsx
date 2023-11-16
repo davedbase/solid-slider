@@ -1,19 +1,19 @@
 import { Component, createSignal, For } from "solid-js";
 // import { createSlider } from "solid-slider";
 import { Slider, SliderButton, SliderProvider } from "../../../src/index";
-import autoplay from "../../../src/plugins/autoplay";
+import { autoplay } from "../../../src/plugins/autoplay";
 
 import "./index.css";
 import "../../../src/slider.css";
 
 const App: Component = () => {
-  const [childs, setChildren] = createSignal([1, 2, 3]);
+  const [childs, setChildren] = createSignal<number[]>([1, 2, 3]);
   return (
     <SliderProvider>
       <Slider
         options={{
           loop: true,
-          initial: 3
+          initial: 3,
         }}
         plugins={[autoplay(1500, {})]}
       >
@@ -26,7 +26,8 @@ const App: Component = () => {
       <SliderButton next>Next</SliderButton>
       <br />
       <br />
-    <b>Slide Count:</b>{JSON.stringify(childs())}
+      <b>Slide Count:</b>
+      {JSON.stringify(childs())}
     </SliderProvider>
   );
 };

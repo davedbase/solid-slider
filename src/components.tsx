@@ -1,8 +1,15 @@
-import { on, createContext, useContext, createSignal, FlowComponent, createEffect } from 'solid-js';
-import { createSlider } from './primitive';
-import { KeenSliderOptions, KeenSliderPlugin } from 'keen-slider';
-import { access } from '@solid-primitives/utils';
-import { isServer } from 'solid-js/web';
+import {
+  on,
+  createContext,
+  useContext,
+  createSignal,
+  FlowComponent,
+  createEffect,
+} from "solid-js";
+import { access } from "@solid-primitives/utils";
+import { isServer } from "solid-js/web";
+import { KeenSliderOptions, KeenSliderPlugin } from "keen-slider";
+import { createSlider } from "./primitive";
 
 // The following is a hacky way of extracting SliderHelpers
 interface Func<T> {
@@ -12,10 +19,12 @@ export function returnType<T>(func: Func<T>) {
   return {} as T;
 }
 const sliderValues = returnType(createSlider);
-type SliderHelpers = (typeof sliderValues)[1];
+type SliderHelpers = typeof sliderValues[1];
 
 // Main context for the slider
-export const SliderContext = createContext(createSignal<SliderHelpers | null>(null));
+export const SliderContext = createContext(
+  createSignal<SliderHelpers | null>(null)
+);
 
 /**
  * A helpful and simple Provider to wrap your Slider if controls such as SliderButton are used.
@@ -24,7 +33,9 @@ export const SliderContext = createContext(createSignal<SliderHelpers | null>(nu
  * @param props {KeenSLiderPlugin} plugins - A list of Solid Slider or Keen slider plugins.
  */
 export const SliderProvider: FlowComponent = (props) => (
-  <SliderContext.Provider value={createSignal(null)}>{props.children}</SliderContext.Provider>
+  <SliderContext.Provider value={createSignal<SliderHelpers | null>(null)}>
+    {props.children}
+  </SliderContext.Provider>
 );
 
 /**
@@ -39,7 +50,10 @@ export const Slider: FlowComponent<{
 }> = (props) => {
   if (isServer) return <div class="keen-slider">{props.children}</div>;
   const [, setHelpers] = useContext(SliderContext);
-  const [slider, helpers] = createSlider(props.options || {}, ...(props.plugins || []));
+  const [slider, helpers] = createSlider(
+    props.options || {},
+    ...(props.plugins || [])
+  );
   setHelpers(helpers);
   createEffect(
     on(

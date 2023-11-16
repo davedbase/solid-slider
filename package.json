@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "1.3.15",
+  "version": "1.3.16",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "repository": {
@@ -69,17 +69,19 @@
     "gallery",
     "plugin"
   ],
+  "peerDependencies": {
+    "solid-js": "^1.8.5"
+  },
   "dependencies": {
-    "@solid-primitives/timer": "^1.3.4",
-    "@solid-primitives/utils": "^4.0.0",
-    "keen-slider": "^6.8.3",
-    "solid-js": "^1.7.11"
+    "@solid-primitives/timer": "^1.3.7",
+    "@solid-primitives/utils": "^6.2.1",
+    "keen-slider": "^6.8.6"
   },
   "devDependencies": {
-    "esbuild-plugin-solid": "^0.4.2",
-    "prettier": "^2.7.1",
-    "rollup": "^2.79.1",
-    "rollup-preset-solid": "^1.4.0",
-    "typescript": "^4.9.3"
+    "esbuild-plugin-solid": "^0.5.0",
+    "prettier": "^3.1.0",
+    "rollup": "^4.4.1",
+    "rollup-preset-solid": "^2.0.1",
+    "typescript": "^5.2.2"
   }
 }

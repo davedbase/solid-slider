@@ -1,2 +1,2 @@
-export * from './primitive';
-export * from './components';
+export * from "./primitive";
+export * from "./components";
