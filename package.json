@@ -22,6 +22,7 @@
   "types": "dist/index/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index/index.d.ts",
       "solid": "./dist/index/index.jsx",
       "import": "./dist/index/index.module.js",
       "browser": "./dist/index/index.module.js",
@@ -29,6 +30,7 @@
       "node": "./dist/index/index.common.js"
     },
     "./plugins/autoplay": {
+      "types": "./dist/autoplay/index.d.ts",
       "solid": "./dist/autoplay/autoplay.jsx",
       "import": "./dist/autoplay/index.module.js",
       "browser": "./dist/autoplay/index.module.js",
@@ -36,6 +38,7 @@
       "node": "./dist/autoplay/index.common.js"
     },
     "./plugins/adaptiveHeight": {
+      "types": "./dist/adaptiveHeight/index.d.ts",
       "solid": "./dist/adaptiveHeight/adaptiveHeight.jsx",
       "import": "./dist/adaptiveHeight/index.module.js",
       "browser": "./dist/adaptiveHeight/index.module.js",
@@ -43,6 +46,7 @@
       "node": "./dist/adaptiveHeight/index.common.js"
     },
     "./plugins/adaptiveWidth": {
+      "types": "./dist/adaptiveWidth/index.d.ts",
       "solid": "./dist/adaptiveWidth/adaptiveWidth.jsx",
       "import": "./dist/adaptiveWidth/index.module.js",
       "browser": "./dist/adaptiveWidth/index.module.js",
