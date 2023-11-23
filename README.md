@@ -222,6 +222,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.14 - Patched npm packaging issue (thanks [joeygrable94 ](https://www.github.com/joeygrable94))
 - 1.3.15 - Updated to Solid 1.7.11
 - 1.3.16 - Updated dependencies and move Solid from dependency to peer
+- 1.3.17 - Added typs definition to exports (thanks [ChristophP](https://github.com/ChristophP))
 
 ## Keen Options API
 
