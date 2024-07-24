@@ -1,5 +1,6 @@
 import { createSignal, For } from "solid-js";
 import { Slider, SliderButton, SliderProvider } from "../../../src/index";
+import { autoplay } from "../../../src/plugins/autoplay";
 
 import "../../../src/slider.css";
 import "./index.css";
@@ -13,6 +14,7 @@ export default function Home() {
           loop: true,
           initial: 3,
         }}
+        plugins={[autoplay(1500, {})]}
       >
         <For each={children()}>
           {(item: number) => <div class={`slide${item}`}>{item}</div>}
