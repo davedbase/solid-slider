@@ -82,9 +82,9 @@
   },
   "devDependencies": {
     "esbuild-plugin-solid": "^0.6.0",
-    "prettier": "^3.3.0",
+    "prettier": "^3.3.3",
     "rollup": "^4.21.3",
     "rollup-preset-solid": "^2.0.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.5.4"
   }
 }

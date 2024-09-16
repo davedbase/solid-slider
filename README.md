@@ -168,6 +168,26 @@ const MyComponent = () => {
 };
 ```
 
+The primitive itself returns the following shape:
+
+```ts
+type SliderControls<O, P, H extends string> = [
+  create: (el: HTMLElement) => void,
+  helpers: {
+    current: Accessor<number>;
+    next: VoidFunction;
+    prev: VoidFunction;
+    moveTo: (id: number, duration?: number, absolute?: boolean, easing?: (t: number) => number) => void;
+    details: () => TrackDetails;
+    slider: () => KeenSliderInstance<O, P, H> | undefined;
+    destroy: VoidFunction;
+    update: VoidFunction;
+  },
+];
+```
+
+Note that only the `current` property returned from the primitive is reactive. If you require additional reactivity on slide change you can use the returns slider instance to bind additional events.
+
 ### Autoplay
 
 The autoplay function extends the slider with pausable playing. You can even supply a signal to control toggling autoplay. [Click here](https://codesandbox.io/s/solid-slider-autoplay-plugin-h2wphk?file=/src/index.tsx) for a demo of autoplay.
@@ -186,7 +206,7 @@ const [slider] = createSlider(
 );
 ```
 
-### SolidStart & Server-Side Rendering
+## SolidStart & Server-Side Rendering
 
 So you want to use Solid Slider with [SolidStart](https://start.solidjs.com/). No problem but be mindful of how you use it and how server-side rendering impacts the experience. Remember that by default SolidStart enables SSR meaning that your pages are initially rendered on the server. The server has no context of the dimensions of your browser so it cannot calculate how the slider will appear once it's rendered in the browser.
 

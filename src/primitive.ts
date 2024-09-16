@@ -27,17 +27,17 @@ export type SliderControls<O, P, H extends string> = [
   create: (el: HTMLElement) => void,
   helpers: {
     current: Accessor<number>;
-    next: Accessor<void>;
-    prev: Accessor<void>;
+    next: VoidFunction;
+    prev: VoidFunction;
     moveTo: (
       id: number,
       duration?: number,
       absolute?: boolean,
       easing?: (t: number) => number,
     ) => void;
-    details: Accessor<TrackDetails>;
-    slider: Accessor<KeenSliderInstance<O, P, H> | undefined>;
-    destroy: Accessor<void>;
+    details: () => TrackDetails;
+    slider: () => KeenSliderInstance<O, P, H> | undefined;
+    destroy: VoidFunction;
     update: VoidFunction;
   },
 ];
