@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "1.3.17",
+  "version": "1.3.18",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "repository": {
@@ -19,10 +19,9 @@
   "type": "module",
   "main": "dist/index/index.common.js",
   "module": "dist/index/index.module.js",
-  "types": "dist/index/index.d.ts",
+  "types": "./dist/index/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index/index.d.ts",
       "solid": "./dist/index/index.jsx",
       "import": "./dist/index/index.module.js",
       "browser": "./dist/index/index.module.js",
@@ -54,8 +53,8 @@
       "node": "./dist/adaptiveWidth/index.common.js"
     },
     "./slider.css": "./dist/slider.css",
-    "./adaptiveHeight/style.css": "./dist/adaptiveHeight/slider.css",
-    "./adaptiveWidth/style.css": "./dist/adaptiveWidth/slider.css"
+    "./plugins/adaptiveHeight.css": "./dist/adaptiveHeight/slider.css",
+    "./plugins/adaptiveWidth.css": "./dist/adaptiveWidth/slider.css"
   },
   "sideEffects": false,
   "files": [
@@ -77,14 +76,14 @@
     "solid-js": "^1.8.5"
   },
   "dependencies": {
-    "@solid-primitives/timer": "^1.3.9",
+    "@solid-primitives/timer": "^1.3.10",
     "@solid-primitives/utils": "^6.2.3",
     "keen-slider": "^6.8.6"
   },
   "devDependencies": {
-    "esbuild-plugin-solid": "^0.5.0",
-    "prettier": "^3.1.0",
-    "rollup": "^4.4.1",
+    "esbuild-plugin-solid": "^0.6.0",
+    "prettier": "^3.3.0",
+    "rollup": "^4.21.3",
     "rollup-preset-solid": "^2.0.1",
     "typescript": "^5.2.2"
   }

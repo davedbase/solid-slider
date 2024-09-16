@@ -1,20 +1,46 @@
-import { on, onMount, createSignal, onCleanup, Accessor, createEffect } from 'solid-js';
-import { access } from '@solid-primitives/utils';
+import {
+  on,
+  onMount,
+  createSignal,
+  onCleanup,
+  Accessor,
+  createEffect,
+} from "solid-js";
+import { access } from "@solid-primitives/utils";
 import KeenSlider, {
   KeenSliderHooks,
   KeenSliderInstance,
   KeenSliderOptions,
   KeenSliderPlugin,
-  TrackDetails
-} from 'keen-slider';
+  TrackDetails,
+} from "keen-slider";
 
-declare module 'solid-js' {
+declare module "solid-js" {
   namespace JSX {
     interface Directives {
       slider: {};
     }
   }
 }
+
+export type SliderControls<O, P, H extends string> = [
+  create: (el: HTMLElement) => void,
+  helpers: {
+    current: Accessor<number>;
+    next: Accessor<void>;
+    prev: Accessor<void>;
+    moveTo: (
+      id: number,
+      duration?: number,
+      absolute?: boolean,
+      easing?: (t: number) => number,
+    ) => void;
+    details: Accessor<TrackDetails>;
+    slider: Accessor<KeenSliderInstance<O, P, H> | undefined>;
+    destroy: Accessor<void>;
+    update: VoidFunction;
+  },
+];
 
 /**
  * Creates a slider powered by KeenSlider.
@@ -37,53 +63,48 @@ declare module 'solid-js' {
  * <div use:slider>...</div>
  * ```
  */
-export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>(
+export const createSlider = <
+  O = {},
+  P = {},
+  H extends string = KeenSliderHooks,
+>(
   options?: KeenSliderOptions<O, P, H> | Accessor<KeenSliderOptions<O, P, H>>,
   ...plugins: KeenSliderPlugin<O, P, H>[]
-): [
-  create: (el: HTMLElement) => void,
-  helpers: {
-    current: Accessor<number>;
-    next: Accessor<void>;
-    prev: Accessor<void>;
-    moveTo: (
-      id: number,
-      duration?: number,
-      absolute?: boolean,
-      easing?: (t: number) => number
-    ) => void;
-    details: Accessor<TrackDetails>;
-    slider: Accessor<KeenSliderInstance<O, P, H> | undefined>;
-    destroy: Accessor<void>;
-    update: VoidFunction;
-  }
-] => {
+): SliderControls<O, P, H> => {
   let slider: KeenSliderInstance<O, P, H> | undefined;
   let el: HTMLElement;
   const opts = () => access(options);
   const [current, setCurrent] = createSignal(opts()?.initial || 0);
   const destroy = () => slider && slider.destroy();
   const getOptions: Accessor<KeenSliderOptions<O, P, H> | undefined> = (
-    overrides = {}
+    overrides = {},
     // @ts-ignore
   ) => ({
     selector: el.childNodes,
     ...opts(),
-    ...overrides
+    ...overrides,
   });
   const update = () => slider?.update(getOptions());
   // Slider creation method and directive function
   const create = (newEl: HTMLElement) => {
     el = newEl;
-    el.classList.add('keen-slider');
+    el.classList.add("keen-slider");
     onMount(() => {
       slider = new KeenSlider<O, P, H>(el, getOptions(), plugins);
-      slider.on('slideChanged', () => setCurrent(slider!.track.details.rel));
+      slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
     });
     onCleanup(destroy);
-    if (typeof options === 'function') {
+    if (typeof options === "function") {
       createEffect(on(() => options, update));
     }
+  };
+  const moveTo = (
+    id: number,
+    duration = 250,
+    absolute = false,
+    easing?: (t: number) => number,
+  ) => {
+    slider?.moveToIdx(id, absolute, { duration, easing: easing });
   };
   return [
     create,
@@ -93,10 +114,9 @@ export const createSlider = <O = {}, P = {}, H extends string = KeenSliderHooks>
       prev: () => slider && slider.prev(),
       details: () => (slider ? slider.track.details : ({} as TrackDetails)),
       slider: () => slider,
-      moveTo: (id: number, duration = 250, absolute = false, easing?: (t: number) => number) =>
-        slider?.moveToIdx(id, absolute, { duration, easing: easing }),
+      moveTo,
       destroy,
-      update
-    }
+      update,
+    },
   ];
 };

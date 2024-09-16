@@ -4,7 +4,7 @@
 [![size](https://img.shields.io/npm/v/solid-slider?style=for-the-badge)](https://www.npmjs.com/package/solid-slider)
 ![npm](https://img.shields.io/npm/dw/solid-slider?style=for-the-badge)
 
-A carousel/slider implementation in TypeScript for SolidJS. It's built on Keen-Slider 6, an open-source library agnostic touch slider with native touch/swipe behavior and great performance. It comes with no dependencies, TypeScript support, multitouch support and is compatible with all common browsers.
+A carousel/slider implementation in TypeScript for [Solid](https://www.solidjs.com). It's built on Keen-Slider 6, an open-source library agnostic touch slider with native touch/swipe behavior and great performance. It comes with no dependencies, TypeScript support, multitouch support and is compatible with all common browsers.
 
 This package providers both primitive & directive as well as components. You may use either according to your preference. Note that for better SSR support, the component is recommended over the directive.
 
@@ -97,15 +97,15 @@ const MyComponent = () => {
 You may include the adaptive height plugin by providing it as a prop:
 
 ```tsx
-import createSlider from “solid-slider”;
-import autoplay from “solid-slider/plugins/adaptiveHeight”;
+import createSlider from "solid-slider";
+import autoplay from "solid-slider/plugins/adaptiveHeight";
 
 const MyComponent = () => {
   return (
     <Slider options={{ loop: true }} plugins={[adaptiveHeight]}>
-      <div class=“slide1”>1</div>
-      <div class=“slide2”>2</div>
-      <div class=“slide3”>3</div>
+      <div class="slide1">1</div>
+      <div class="slide2">2</div>
+      <div class="slide3">3</div>
     </Slider>
   );
 };
@@ -116,15 +116,15 @@ const MyComponent = () => {
 You may include the adaptive width plugin by providing it as a prop:
 
 ```tsx
-import createSlider from “solid-slider”;
-import autoplay from “solid-slider/plugins/adaptiveWidth”;
+import { createSlider } from "solid-slider";
+import { autoplay } from "solid-slider/plugins/adaptiveWidth";
 
 const MyComponent = () => {
   return (
     <Slider options={{ loop: true }} plugins={[adaptiveWidth]}>
-      <div class=“slide1”>1</div>
-      <div class=“slide2”>2</div>
-      <div class=“slide3”>3</div>
+      <div class="slide1">1</div>
+      <div class="slide2">2</div>
+      <div class="slide3">3</div>
     </Slider>
   );
 };
@@ -173,8 +173,8 @@ const MyComponent = () => {
 The autoplay function extends the slider with pausable playing. You can even supply a signal to control toggling autoplay. [Click here](https://codesandbox.io/s/solid-slider-autoplay-plugin-h2wphk?file=/src/index.tsx) for a demo of autoplay.
 
 ```ts
-import createSlider from "solid-slider";
-import autoplay from "solid-slider/plugins/autoplay";
+import { createSlider } from "solid-slider";
+import { autoplay } from "solid-slider/plugins/autoplay";
 
 const [pause, togglePause] = createSignal(false);
 const [slider] = createSlider(
@@ -182,9 +182,19 @@ const [slider] = createSlider(
   autoplay(2000, {
     pause,
     pauseOnDrag: true,
-  })
+  }),
 );
 ```
+
+### SolidStart & Server-Side Rendering
+
+So you want to use Solid Slider with [SolidStart](https://start.solidjs.com/). No problem but be mindful of how you use it and how server-side rendering impacts the experience. Remember that by default SolidStart enables SSR meaning that your pages are initially rendered on the server. The server has no context of the dimensions of your browser so it cannot calculate how the slider will appear once it's rendered in the browser.
+
+Furthermore there's typically a small window of window between when the slider is sent to the browser and the moment it hydrates and becomes interactive. Given this is how all frameworks operate you're likely to experience the dreaded FOUC (flash of un-styled content).
+
+To mitigate this issue you have two options available. You could add CSS styles (`visibility: hidden` or `hidden` in Tailwind) to hide the content and use the `created` callback in options to remove it from the slider once it's been created on the page. You could also initially style your slider correctly so it doesn't flash at all.
+
+Alternatively you can use [`clientOnly`](https://docs.solidjs.com/solid-start/reference/client/client-only#clientonly) to ensure it isn't part of the SSR process. This is a bit lazy and not ideal in situations where you want content on your page to render for SEO purposes.
 
 ## Implementation
 
@@ -223,6 +233,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.15 - Updated to Solid 1.7.11
 - 1.3.16 - Updated dependencies and move Solid from dependency to peer
 - 1.3.17 - Added typs definition to exports (thanks [ChristophP](https://github.com/ChristophP))
+- 1.3.18 - Adjusted documentation which was demonstrating incorrect import paths
 
 ## Keen Options API
 
