@@ -24,8 +24,8 @@ pnpm add solid-slider
 Import either the directive or component as you'd like:
 
 ```ts
-import "solid-slider/slider.css";
 import { Slider, createSlider } from "solid-slider";
+import "solid-slider/slider.css";
 ```
 
 ## Demo
