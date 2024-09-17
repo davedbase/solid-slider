@@ -11,8 +11,14 @@ This package providers both primitive & directive as well as components. You may
 ## Installation
 
 ```bash
-npm install solid-slider --save
-yarn add solid-slider ## or in yarn
+## npm
+npm install solid-slider
+## bun
+bun add solid-slider
+## yarn
+yarn add solid-slider
+## pnpm
+pnpm add solid-slider
 ```
 
 Import either the directive or component as you'd like:
