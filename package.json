@@ -1,6 +1,6 @@
 {
   "name": "solid-slider",
-  "version": "1.3.18",
+  "version": "1.3.19",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "repository": {
@@ -17,11 +17,12 @@
     "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css && cp src/plugins/adaptiveHeight.css dist/adaptiveHeight/style.css && cp src/plugins/adaptiveWidth.css dist/adaptiveWidth/style.css"
   },
   "type": "module",
-  "main": "dist/index/index.common.js",
-  "module": "dist/index/index.module.js",
+  "main": "./dist/index/index.common.js",
+  "module": "./dist/index/index.module.js",
   "types": "./dist/index/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index/index.d.ts",
       "solid": "./dist/index/index.jsx",
       "import": "./dist/index/index.module.js",
       "browser": "./dist/index/index.module.js",
