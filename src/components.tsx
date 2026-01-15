@@ -230,14 +230,15 @@ export const SliderDots: FlowComponent<{
 export const SliderThumbnails: FlowComponent<{
   options?: KeenSliderOptions;
   plugins?: KeenSliderPlugin[];
+  activeClass?: string;
 }> = (props) => {
-  if (isServer) return <div class="keen-slider">{props.children}</div>;
+  if (isServer) return <div>{props.children}</div>;
 
   const mainContext = useContext(SliderContext);
 
   if (!mainContext) {
     console.warn("SliderThumbnails must be used within a SliderProvider");
-    return <div class="keen-slider">{props.children}</div>;
+    return <div>{props.children}</div>;
   }
 
   const [mainHelpers] = mainContext;
@@ -266,16 +267,19 @@ export const SliderThumbnails: FlowComponent<{
 
       if (mainSliderInstance && thumbSliderInstance) {
         // Function to update active thumbnail
+        const activeClassName = props.activeClass || "active";
         const updateActiveThumbnail = () => {
           const mainCurrent = mainHelpers()?.current();
           if (mainCurrent !== undefined) {
             // Remove active class from all thumbnails
             thumbSliderInstance.slides.forEach((slide) => {
-              slide.classList.remove("active");
+              slide.classList.remove(activeClassName);
             });
             // Add active class to current thumbnail
             if (thumbSliderInstance.slides[mainCurrent]) {
-              thumbSliderInstance.slides[mainCurrent].classList.add("active");
+              thumbSliderInstance.slides[mainCurrent].classList.add(
+                activeClassName,
+              );
             }
             // Move thumbnail slider to show active thumbnail
             thumbHelpers.moveTo(mainCurrent);
@@ -301,9 +305,5 @@ export const SliderThumbnails: FlowComponent<{
   // Prevent tree-shaking
   thumbSlider;
 
-  return (
-    <div use:thumbSlider class="keen-slider">
-      {props.children}
-    </div>
-  );
+  return <div use:thumbSlider>{props.children}</div>;
 };

@@ -307,7 +307,7 @@ const MyComponent = () => {
       <Slider options={{ loop: true }}>
         <For each={images}>
           {(img) => (
-            <div class="keen-slider__slide">
+            <div>
               <img src={img.full} alt="Slide" />
             </div>
           )}
@@ -316,7 +316,7 @@ const MyComponent = () => {
       <SliderThumbnails options={{ slides: { perView: 4, spacing: 10 } }}>
         <For each={images}>
           {(img) => (
-            <div class="keen-slider__slide">
+            <div class="thumbnail-slide">
               <img src={img.thumb} alt="Thumbnail" />
             </div>
           )}
@@ -332,6 +332,7 @@ const MyComponent = () => {
 **Props:**
 - `options` - KeenSlider options for the thumbnail slider (e.g., slides per view, spacing)
 - `plugins` - Array of KeenSlider plugins to apply to the thumbnail slider
+- `activeClass` - Custom CSS class name for the active thumbnail (default: `"active"`)
 
 **Features:**
 - Automatically syncs with the main slider
@@ -342,21 +343,10 @@ const MyComponent = () => {
 **Styling Example:**
 
 ```css
-.slider-thumbnails {
-  margin-top: 20px;
-}
-
-.keen-slider__slide {
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.3s;
-}
-
-.keen-slider__slide:hover {
+.thumbnail-slide:hover {
   opacity: 0.8;
 }
-
-.keen-slider__slide.active {
+.thumbnail-slide.active {
   opacity: 1;
 }
 ```
