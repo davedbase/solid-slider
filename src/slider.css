@@ -28,3 +28,24 @@
 .keen-slider:not([data-keen-slider-disabled])[data-keen-slider-moves] * {
   pointer-events: none;
 }
+.keen-slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.keen-slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.keen-slider-dot:hover {
+  background: #aaa;
+}
+.keen-slider-dot.active {
+  background: #333;
+}

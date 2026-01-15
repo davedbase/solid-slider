@@ -71,7 +71,7 @@ const MyComponent = () => {
       </Slider>
       <SliderButton prev>Previous</SliderButton>
       <SliderButton next>Next</SliderButton>
-    <SliderProvider>
+    </SliderProvider>
   );
 };
 ```
@@ -212,6 +212,155 @@ const [slider] = createSlider(
 );
 ```
 
+## Helper Components
+
+### Navigation Dots
+
+You can add navigation dots to your slider using the `SliderDots` component. The component automatically generates clickable dots for each slide and highlights the active slide.
+
+```tsx
+import { SliderProvider, Slider, SliderDots } from "solid-slider";
+
+const MyComponent = () => {
+  return (
+    <SliderProvider>
+      <Slider options={{ loop: true }}>
+        <div>Slide 1</div>
+        <div>Slide 2</div>
+        <div>Slide 3</div>
+      </Slider>
+      <SliderDots />
+    </SliderProvider>
+  );
+};
+```
+
+**Customization:**
+
+You can customize the dots styling using `class`, `classList`, `dotClass`, and `dotClassList` props:
+
+```tsx
+<SliderDots
+  class="my-dots-container"
+  dotClass="my-dot"
+  dotClassList={{ "my-active-dot": true }}
+/>
+```
+
+**Props:**
+- `class` - CSS class for the dots container
+- `classList` - Conditional classes for the dots container
+- `dotClass` - CSS class for individual dot buttons
+- `dotClassList` - Conditional classes for individual dot buttons
+
+**Default Classes:**
+- Container: `.slider-dots`
+- Individual dots: `.slider-dot`
+- Active dot: `.slider-dot.active`
+
+**Styling Example:**
+
+```css
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ddd;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.slider-dot:hover {
+  background: #aaa;
+}
+
+.slider-dot.active {
+  background: #333;
+}
+```
+
+### Thumbnail Navigation
+
+Create a synchronized thumbnail navigation using the `SliderThumbnails` component. This creates a second slider that stays in sync with the main slider, allowing users to click thumbnails to navigate.
+
+```tsx
+import { SliderProvider, Slider, SliderThumbnails } from "solid-slider";
+import { For } from "solid-js";
+
+const MyComponent = () => {
+  const images = [
+    { full: "/slide1.jpg", thumb: "/thumb1.jpg" },
+    { full: "/slide2.jpg", thumb: "/thumb2.jpg" },
+    { full: "/slide3.jpg", thumb: "/thumb3.jpg" },
+  ];
+
+  return (
+    <SliderProvider>
+      <Slider options={{ loop: true }}>
+        <For each={images}>
+          {(img) => (
+            <div class="keen-slider__slide">
+              <img src={img.full} alt="Slide" />
+            </div>
+          )}
+        </For>
+      </Slider>
+      <SliderThumbnails options={{ slides: { perView: 4, spacing: 10 } }}>
+        <For each={images}>
+          {(img) => (
+            <div class="keen-slider__slide">
+              <img src={img.thumb} alt="Thumbnail" />
+            </div>
+          )}
+        </For>
+      </SliderThumbnails>
+    </SliderProvider>
+  );
+};
+```
+
+**Important:** When using dynamic content with `SliderThumbnails`, use SolidJS's `<For>` component instead of `.map()` to ensure proper reactivity.
+
+**Props:**
+- `options` - KeenSlider options for the thumbnail slider (e.g., slides per view, spacing)
+- `plugins` - Array of KeenSlider plugins to apply to the thumbnail slider
+
+**Features:**
+- Automatically syncs with the main slider
+- Adds `active` class to the current thumbnail
+- Click any thumbnail to navigate to that slide
+- Supports all KeenSlider options for customization
+
+**Styling Example:**
+
+```css
+.slider-thumbnails {
+  margin-top: 20px;
+}
+
+.keen-slider__slide {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.keen-slider__slide:hover {
+  opacity: 0.8;
+}
+
+.keen-slider__slide.active {
+  opacity: 1;
+}
+```
+
 ## SolidStart & Server-Side Rendering
 
 So you want to use Solid Slider with [SolidStart](https://start.solidjs.com/). No problem but be mindful of how you use it and how server-side rendering impacts the experience. Remember that by default SolidStart enables SSR meaning that your pages are initially rendered on the server. The server has no context of the dimensions of your browser so it cannot calculate how the slider will appear once it's rendered in the browser.
@@ -232,8 +381,8 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 
 - [x] Create [adaptiveHeight](https://codesandbox.io/s/github/rcbyr/keen-slider-sandboxes/tree/v6/misc/adaptive-height/react?file=/src/App.js:191-403) plugin
 - [x] Create [adaptiveWidth](https://github.com/joeygrable94/solid-slider) plugin
-- [ ] Add Dots components (to display a row of dots below the slider)
-- [ ] Add slider thumbnail navigation
+- [x] Add Dots components (to display a row of dots below the slider)
+- [x] Add slider thumbnail navigation
 - [ ] Add slider loader
 - [ ] Build [timepicker](https://keen-slider.io/examples#timepicker) component
 - [ ] Create [Scroll Wheel](https://keen-slider.io/examples#scroll-wheel-controls) component
@@ -248,7 +397,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.2.9 - Updated timer primitive and patched issue with current slide setting from initial options.
 - 1.3.1 - Introduced Slider, SliderProvider and SliderButton for ease.
 - 1.3.2 - Patched issue with initial slide not setting current signal.
-- 1.3.5 - Updated to latest SolidJS version.
+- 1.3.5 - Updated to latest Solid version.
 - 1.3.7 - Fixed TS issues updated to latest KeenSlider.
 - 1.3.8 - Updated to Solid 1.5
 - 1.3.9 - Fixed Keen URLs, type issues and truthy error with autoplay (thanks [ishanAhuja](https://www.github.com/ishanAhuja) and [ahhshm](https://www.github.com/ahhshm))
@@ -261,6 +410,7 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.17 - Added typs definition to exports (thanks [ChristophP](https://github.com/ChristophP))
 - 1.3.18 - Adjusted documentation and minor source cleanup
 - 1.3.19 - Attempt to fix export paths
+- 1.3.20 - Package maintenance (bumping versions) and added new dot and thumbnail navigation components
 
 ## Keen Options API
 
