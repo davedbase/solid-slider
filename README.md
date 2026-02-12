@@ -1,3 +1,8 @@
+<p>
+  <img width="100%" src="https://assets.solidjs.com/banner?type=Solid%20Slider&background=tiles&project=%20" alt="Solid Slider">
+</p>
+
+
 # Solid Slider
 
 [![size](https://img.shields.io/bundlephobia/minzip/solid-slider?style=for-the-badge)](https://bundlephobia.com/package/solid-slider)
