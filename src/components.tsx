@@ -4,6 +4,7 @@ import {
   useContext,
   createSignal,
   FlowComponent,
+  Component,
   createEffect,
   For,
   Show,
@@ -129,7 +130,7 @@ export const SliderButton: FlowComponent<{
  * </SliderProvider>
  * ```
  */
-export const SliderDots: FlowComponent<{
+export const SliderDots: Component<{
   class?: string;
   classList?: { [k: string]: boolean | undefined };
   dotClass?: string;
