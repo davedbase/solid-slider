@@ -19,6 +19,7 @@ declare module "solid-js" {
   namespace JSX {
     interface Directives {
       slider: {};
+      thumbSlider: {};
     }
   }
 }
@@ -45,17 +46,16 @@ export type SliderControls<O, P, H extends string> = [
 /**
  * Creates a slider powered by KeenSlider.
  *
- * @param {Object} options Values to initialize the slider with
- * @param {Array} plugins Extensions that enhance KeenSlider options
- * @returns {[create: Function, helpers: Object]} Returns mount and helper methods
- * @returns {Function} create Mounts the slider on provided element
- * @returns {Function} helpers.current Current slide number
- * @returns {Function} helpers.current Current slide number
- * @returns {Function} helpers.next Function to trigger the next slide
- * @returns {Function} helpers.prev Function to trigger the previous slide
- * @returns {Function<Object>} helpers.details Provides details about the current slider
- * @returns {Function} helpers.slider Returns the KeenSlider instance
- * @returns {Function} helpers.destroy Manual destroy function
+ * @param options - Values to initialize the slider with
+ * @param plugins - Extensions that enhance KeenSlider options
+ * @returns Returns mount and helper methods
+ * @returns create - Mounts the slider on provided element
+ * @returns helpers.current - Current slide number
+ * @returns helpers.next - Function to trigger the next slide
+ * @returns helpers.prev - Function to trigger the previous slide
+ * @returns helpers.details - Provides details about the current slider
+ * @returns helpers.slider - Returns the KeenSlider instance
+ * @returns helpers.destroy - Manual destroy function
  *
  * @example
  * ```ts
@@ -74,16 +74,16 @@ export const createSlider = <
   let slider: KeenSliderInstance<O, P, H> | undefined;
   let el: HTMLElement;
   const opts = () => access(options);
-  const [current, setCurrent] = createSignal(opts()?.initial || 0);
+  const [current, setCurrent] = createSignal((opts() as any)?.initial || 0);
   const destroy = () => slider && slider.destroy();
-  const getOptions: Accessor<KeenSliderOptions<O, P, H> | undefined> = (
-    overrides = {},
-    // @ts-ignore
-  ) => ({
-    selector: el.childNodes,
-    ...opts(),
-    ...overrides,
-  });
+  const getOptions = (overrides = {}): KeenSliderOptions<O, P, H> => {
+    const baseOpts = opts();
+    return {
+      selector: el.childNodes,
+      ...(baseOpts || {}),
+      ...overrides,
+    } as KeenSliderOptions<O, P, H>;
+  };
   const update = () => slider?.update(getOptions());
   // Slider creation method and directive function
   const create = (newEl: HTMLElement) => {

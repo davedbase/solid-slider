@@ -5,13 +5,13 @@ import { Accessor, createEffect } from "solid-js";
 /**
  * Provides an autoplay plugin.
  *
- * @param {number} interval Interval in milliseconds for switching slides
- * @param {object} options Options to customize the autoplay
- * @param {Function} options.pause A pause signal to control the autoplay
- * @param {boolean} options.pauseOnDrag Denotes of the autoplay should pause on drag.
- * @param {object} options.animation Allows for control of duration and easing.
- * @param {number} options.duration Duration for transitioning the slide.
- * @param {number} options.easing Easing function for the transition animation.
+ * @param interval - Interval in milliseconds for switching slides
+ * @param options - Options to customize the autoplay
+ * @param options.pause - A pause signal to control the autoplay
+ * @param options.pauseOnDrag - Denotes of the autoplay should pause on drag.
+ * @param options.animation - Allows for control of duration and easing.
+ * @param options.duration - Duration for transitioning the slide.
+ * @param options.easing - Easing function for the transition animation.
  *
  * @example
  * ```ts

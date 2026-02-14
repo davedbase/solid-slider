@@ -6,7 +6,6 @@ import {
   FlowComponent,
   Component,
   createEffect,
-  For,
   Show,
   JSX,
   createMemo,
@@ -36,8 +35,8 @@ export const SliderContext = createContext(
 /**
  * A helpful and simple Provider to wrap your Slider if controls such as SliderButton are used.
  *
- * @param props {KeenSliderOptions} options - Accepts all KeenSlider options.
- * @param props {KeenSLiderPlugin} plugins - A list of Solid Slider or Keen slider plugins.
+ * @param props.options - Accepts all KeenSlider options.
+ * @param props.plugins - A list of Solid Slider or Keen slider plugins.
  */
 export const SliderProvider: FlowComponent = (props) => (
   <SliderContext.Provider value={createSignal<SliderHelpers | null>(null)}>
@@ -48,8 +47,8 @@ export const SliderProvider: FlowComponent = (props) => (
 /**
  * Main Slider component for specifying the Slider on the page.
  *
- * @param props {KeenSliderOptions} options - Accepts all KeenSlider options.
- * @param props {KeenSLiderPlugin} plugins - A list of Solid Slider or Keen slider plugins.
+ * @param props.options - Accepts all KeenSlider options.
+ * @param props.plugins - A list of Solid Slider or Keen slider plugins.
  */
 export const Slider: FlowComponent<{
   options?: KeenSliderOptions;
@@ -80,10 +79,10 @@ export const Slider: FlowComponent<{
 /**
  * Provides a helpful button with next/prev to pair with your slider.
  *
- * @param props {boolean} next - Specify if this should be a next button.
- * @param props {boolean} prev - Specify if this should be a prev button.
- * @param props {string} class - Class to override the button.
- * @param props {object} classList - List of classes to override the button.
+ * @param props.next - Specify if this should be a next button.
+ * @param props.prev - Specify if this should be a prev button.
+ * @param props.class - Class to override the button.
+ * @param props.classList - List of classes to override the button.
  */
 export const SliderButton: FlowComponent<{
   next?: boolean;
@@ -114,10 +113,10 @@ export const SliderButton: FlowComponent<{
  * Navigation dots component for the slider.
  * Displays a dot for each slide and highlights the current slide.
  *
- * @param props {string} class - Class to override the dots container.
- * @param props {object} classList - List of classes to override the dots container.
- * @param props {string} dotClass - Class to override individual dots.
- * @param props {object} dotClassList - List of classes to override individual dots.
+ * @param props.class - Class to override the dots container.
+ * @param props.classList - List of classes to override the dots container.
+ * @param props.dotClass - Class to override individual dots.
+ * @param props.dotClassList - List of classes to override individual dots.
  *
  * @example
  * ```tsx
@@ -203,8 +202,8 @@ export const SliderDots: Component<{
  * A second Slider that synchronizes with the main slider.
  * User provides thumbnail slides as children.
  *
- * @param props {KeenSliderOptions} options - Options for the thumbnail slider.
- * @param props {KeenSliderPlugin[]} plugins - Plugins for the thumbnail slider.
+ * @param props.options - Options for the thumbnail slider.
+ * @param props.plugins - Plugins for the thumbnail slider.
  *
  * @example
  * ```tsx
