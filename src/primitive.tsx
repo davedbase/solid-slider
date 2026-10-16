@@ -95,7 +95,7 @@ export const createSlider = <
     });
     onCleanup(destroy);
     if (typeof options === "function") {
-      createEffect(on(() => options, update));
+      createEffect(on(options, update));
     }
   };
   const moveTo = (

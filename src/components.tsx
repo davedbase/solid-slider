@@ -57,7 +57,7 @@ export const Slider: FlowComponent<{
   if (isServer) return <div class="keen-slider">{props.children}</div>;
   const [, setHelpers] = useContext(SliderContext);
   const [slider, helpers] = createSlider(
-    props.options || {},
+    () => props.options || {},
     ...(props.plugins || []),
   );
   setHelpers(helpers);
@@ -245,7 +245,7 @@ export const SliderThumbnails: FlowComponent<{
 
   // Create thumbnail slider with user options
   const [thumbSlider, thumbHelpers] = createSlider(
-    props.options || {},
+    () => props.options || {},
     ...(props.plugins || []),
   );
 
