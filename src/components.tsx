@@ -288,16 +288,11 @@ export const SliderThumbnails: FlowComponent<{
 
         // Listen to main slider changes
         mainSliderInstance.on("slideChanged", updateActiveThumbnail);
+        thumbSliderInstance.on("updated", updateActiveThumbnail);
 
         // Set initial active state
         updateActiveThumbnail();
 
-        // Add click handlers to thumbnails
-        thumbSliderInstance.slides.forEach((slide, idx) => {
-          slide.addEventListener("click", () => {
-            mainHelpers()?.moveTo(idx);
-          });
-        });
       }
     });
   });
@@ -305,5 +300,17 @@ export const SliderThumbnails: FlowComponent<{
   // Prevent tree-shaking
   thumbSlider;
 
-  return <div use:thumbSlider>{props.children}</div>;
+  return (
+    <div
+      use:thumbSlider
+      onClick={(event) => {
+        const idx = thumbHelpers.slider()!.slides.findIndex((slide) =>
+          slide.contains(event.target),
+        );
+        if (idx !== -1) mainHelpers()?.moveTo(idx);
+      }}
+    >
+      {props.children}
+    </div>
+  );
 };
