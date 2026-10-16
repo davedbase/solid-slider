@@ -54,8 +54,8 @@
       "node": "./dist/adaptiveWidth/index.common.js"
     },
     "./slider.css": "./dist/slider.css",
-    "./plugins/adaptiveHeight.css": "./dist/adaptiveHeight/slider.css",
-    "./plugins/adaptiveWidth.css": "./dist/adaptiveWidth/slider.css"
+    "./plugins/adaptiveHeight.css": "./dist/adaptiveHeight/style.css",
+    "./plugins/adaptiveWidth.css": "./dist/adaptiveWidth/style.css"
   },
   "sideEffects": false,
   "files": [

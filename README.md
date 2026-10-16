@@ -9,7 +9,7 @@
 [![size](https://img.shields.io/npm/v/solid-slider?style=for-the-badge)](https://www.npmjs.com/package/solid-slider)
 ![npm](https://img.shields.io/npm/dw/solid-slider?style=for-the-badge)
 
-A carousel/slider implementation in TypeScript for [Solid](https://www.solidjs.com). It's built on Keen-Slider 6, an open-source library agnostic touch slider with native touch/swipe behavior and great performance. It comes with no dependencies, TypeScript support, multitouch support and is compatible with all common browsers.
+A carousel/slider implementation in TypeScript for [Solid](https://www.solidjs.com). It's built on Keen-Slider 6, an open-source library agnostic touch slider with native touch/swipe behavior and great performance. It comes with TypeScript support, multitouch support and is compatible with all common browsers.
 
 This package providers both primitive & directive as well as components. You may use either according to your preference. Note that for better SSR support, the component is recommended over the directive.
 
@@ -86,8 +86,8 @@ const MyComponent = () => {
 You may include the autoplay plugin by providing it as a prop:
 
 ```tsx
-import createSlider from "solid-slider";
-import autoplay from "solid-slider/plugins/autoplay";
+import { Slider } from "solid-slider";
+import { autoplay } from "solid-slider/plugins/autoplay";
 
 const MyComponent = () => {
   return (
@@ -108,12 +108,13 @@ const MyComponent = () => {
 You may include the adaptive height plugin by providing it as a prop:
 
 ```tsx
-import createSlider from "solid-slider";
-import autoplay from "solid-slider/plugins/adaptiveHeight";
+import { Slider } from "solid-slider";
+import { adaptiveHeight } from "solid-slider/plugins/adaptiveHeight";
+import "solid-slider/plugins/adaptiveHeight.css";
 
 const MyComponent = () => {
   return (
-    <Slider options={{ loop: true }} plugins={[adaptiveHeight]}>
+    <Slider options={{ loop: true }} plugins={[adaptiveHeight()]}>
       <div class="slide1">1</div>
       <div class="slide2">2</div>
       <div class="slide3">3</div>
@@ -127,12 +128,13 @@ const MyComponent = () => {
 You may include the adaptive width plugin by providing it as a prop:
 
 ```tsx
-import { createSlider } from "solid-slider";
-import { autoplay } from "solid-slider/plugins/adaptiveWidth";
+import { Slider } from "solid-slider";
+import { adaptiveWidth } from "solid-slider/plugins/adaptiveWidth";
+import "solid-slider/plugins/adaptiveWidth.css";
 
 const MyComponent = () => {
   return (
-    <Slider options={{ loop: true }} plugins={[adaptiveWidth]}>
+    <Slider options={{ loop: true }} plugins={[adaptiveWidth()]}>
       <div class="slide1">1</div>
       <div class="slide2">2</div>
       <div class="slide3">3</div>
@@ -147,7 +149,7 @@ The following is an example of how to create and then bind options using a direc
 
 ```tsx
 const MyComponent = () => {
-  const options = { duration: 1000 };
+  const options = { defaultAnimation: { duration: 1000 } };
   const [slider, { current, next, prev, moveTo }] = createSlider(options);
   return (
     <div use:slider>
@@ -164,7 +166,7 @@ or without a directive:
 ```tsx
 const MyComponent = () => {
   let ref: HTMLElement;
-  const options = { duration: 1000 };
+  const options = { defaultAnimation: { duration: 1000 } };
   const [slider, { current, next, prev, moveTo }] = createSlider(options);
   onMount(() => {
     slider(ref);
@@ -259,21 +261,21 @@ You can customize the dots styling using `class`, `classList`, `dotClass`, and `
 - `dotClassList` - Conditional classes for individual dot buttons
 
 **Default Classes:**
-- Container: `.slider-dots`
-- Individual dots: `.slider-dot`
-- Active dot: `.slider-dot.active`
+- Container: `.keen-slider-dots`
+- Individual dots: `.keen-slider-dot`
+- Active dot: `.keen-slider-dot.active`
 
 **Styling Example:**
 
 ```css
-.slider-dots {
+.keen-slider-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-top: 20px;
 }
 
-.slider-dot {
+.keen-slider-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -283,11 +285,11 @@ You can customize the dots styling using `class`, `classList`, `dotClass`, and `
   transition: background 0.3s;
 }
 
-.slider-dot:hover {
+.keen-slider-dot:hover {
   background: #aaa;
 }
 
-.slider-dot.active {
+.keen-slider-dot.active {
   background: #333;
 }
 ```
