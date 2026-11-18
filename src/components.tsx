@@ -55,7 +55,7 @@ export const Slider: FlowComponent<{
   if (isServer) return <div class="keen-slider">{props.children}</div>;
   const [, setHelpers] = useContext(SliderContext);
   const [slider, helpers] = createSlider(
-    props.options || {},
+    () => props.options || {},
     ...(props.plugins || []),
   );
   // Registered after createSlider's own onSettled, so the KeenSlider instance
@@ -239,7 +239,7 @@ export const SliderThumbnails: FlowComponent<{
 
   // Create thumbnail slider with user options
   const [thumbSlider, thumbHelpers] = createSlider(
-    props.options || {},
+    () => props.options || {},
     ...(props.plugins || []),
   );
 
@@ -261,7 +261,9 @@ export const SliderThumbnails: FlowComponent<{
         // Function to update active thumbnail
         const activeClassName = props.activeClass || "active";
         const updateActiveThumbnail = () => {
-          const mainCurrent = mainHelpers()?.current();
+          // Read from the Keen instance, not the `current` signal: Solid 2 batches
+          // writes, so the signal still holds the previous slide inside this handler.
+          const mainCurrent = mainSliderInstance.track.details?.rel;
           if (mainCurrent !== undefined) {
             // Remove active class from all thumbnails
             thumbSliderInstance.slides.forEach((slide) => {
@@ -278,21 +280,30 @@ export const SliderThumbnails: FlowComponent<{
           }
         };
 
-        // Listen to main slider changes
+        // Listen to main slider changes, and re-sync when thumbnails are added/removed
         mainSliderInstance.on("slideChanged", updateActiveThumbnail);
+        thumbSliderInstance.on("updated", updateActiveThumbnail);
 
         // Set initial active state
         updateActiveThumbnail();
-
-        // Add click handlers to thumbnails
-        thumbSliderInstance.slides.forEach((slide, idx) => {
-          slide.addEventListener("click", () => {
-            mainHelpers()?.moveTo(idx);
-          });
-        });
       }
     });
   });
 
-  return <div ref={thumbSlider}>{props.children}</div>;
+  // One delegated click handler resolves the slide index at click time, so thumbnails
+  // added, removed or reordered later keep working and no per-slide listeners leak.
+  const onThumbnailClick = (event: MouseEvent) => {
+    const slides = thumbHelpers.slider()?.slides;
+    if (!slides) return;
+    const idx = slides.findIndex((slide) =>
+      slide.contains(event.target as Node),
+    );
+    if (idx !== -1) mainHelpers()?.moveTo(idx);
+  };
+
+  return (
+    <div ref={thumbSlider} onClick={onThumbnailClick}>
+      {props.children}
+    </div>
+  );
 };
