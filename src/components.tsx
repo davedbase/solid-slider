@@ -1,5 +1,4 @@
 import {
-  on,
   createContext,
   useContext,
   createSignal,
@@ -7,13 +6,12 @@ import {
   Component,
   createEffect,
   Show,
-  JSX,
   createMemo,
-  Index,
-  onMount,
+  For,
+  onSettled,
 } from "solid-js";
 import { access } from "@solid-primitives/utils";
-import { isServer } from "solid-js/web";
+import { isServer } from "@solidjs/web";
 import { KeenSliderOptions, KeenSliderPlugin } from "keen-slider";
 import { createSlider } from "./primitive";
 
@@ -39,9 +37,9 @@ export const SliderContext = createContext(
  * @param props.plugins - A list of Solid Slider or Keen slider plugins.
  */
 export const SliderProvider: FlowComponent = (props) => (
-  <SliderContext.Provider value={createSignal<SliderHelpers | null>(null)}>
+  <SliderContext value={createSignal<SliderHelpers | null>(null)}>
     {props.children}
-  </SliderContext.Provider>
+  </SliderContext>
 );
 
 /**
@@ -60,17 +58,18 @@ export const Slider: FlowComponent<{
     props.options || {},
     ...(props.plugins || []),
   );
-  setHelpers(helpers);
+  // Registered after createSlider's own onSettled, so the KeenSlider instance
+  // exists by the time consumers see the helpers.
+  onSettled(() => {
+    setHelpers(helpers);
+  });
   createEffect(
-    on(
-      () => access(props.children),
-      () => queueMicrotask(() => helpers.update()),
-      { defer: true },
-    ),
+    () => access(props.children),
+    () => queueMicrotask(() => helpers.update()),
+    { defer: true },
   );
-  slider;
   return (
-    <div use:slider class="keen-slider">
+    <div ref={slider} class="keen-slider">
       {props.children}
     </div>
   );
@@ -100,8 +99,7 @@ export const SliderButton: FlowComponent<{
   return (
     <button
       disabled={props.disabled || false}
-      class={props.class}
-      classList={props.classList}
+      class={[props.class, props.classList]}
       onClick={changeSlide}
     >
       {props.children}
@@ -145,25 +143,24 @@ export const SliderDots: Component<{
   };
 
   // Update slide count when slider is created/updated
-  createEffect(() => {
-    if (!context) return;
-    const [helpers] = context;
-    const sliderInstance = helpers()?.slider();
+  createEffect(
+    () => (context ? context[0]()?.slider() : undefined),
+    (sliderInstance) => {
+      if (sliderInstance) {
+        const updateCount = () => {
+          const details = sliderInstance.track.details;
+          setSlideCount(details?.slides?.length || 0);
+        };
 
-    if (sliderInstance) {
-      const updateCount = () => {
-        const details = helpers()?.details();
-        setSlideCount(details?.slides?.length || 0);
-      };
+        // Set initial count
+        updateCount();
 
-      // Set initial count
-      updateCount();
-
-      // Listen for slider changes
-      sliderInstance.on("created", updateCount);
-      sliderInstance.on("updated", updateCount);
-    }
-  });
+        // Listen for slider changes
+        sliderInstance.on("created", updateCount);
+        sliderInstance.on("updated", updateCount);
+      }
+    },
+  );
 
   const slides = createMemo(() =>
     Array.from({ length: slideCount() }, (_, i) => i),
@@ -171,27 +168,24 @@ export const SliderDots: Component<{
 
   return (
     <Show when={context != null}>
-      <div
-        class={props.class || "keen-slider-dots"}
-        classList={props.classList}
-      >
-        <Index each={slides()}>
+      <div class={[props.class || "keen-slider-dots", props.classList]}>
+        <For each={slides()} keyed={false}>
           {(idx) => {
             const [helpers] = context!;
             const isActive = () => helpers()?.current() === idx();
             return (
               <button
-                class={props.dotClass || "keen-slider-dot"}
-                classList={{
-                  ...props.dotClassList,
-                  active: isActive(),
-                }}
+                class={[
+                  props.dotClass || "keen-slider-dot",
+                  props.dotClassList,
+                  { active: isActive() },
+                ]}
                 onClick={() => handleDotClick(idx())}
                 aria-label={`Go to slide ${idx() + 1}`}
               />
             );
           }}
-        </Index>
+        </For>
       </div>
     </Show>
   );
@@ -251,15 +245,13 @@ export const SliderThumbnails: FlowComponent<{
 
   // Update on children change (same as main Slider)
   createEffect(
-    on(
-      () => access(props.children),
-      () => queueMicrotask(() => thumbHelpers.update()),
-      { defer: true },
-    ),
+    () => access(props.children),
+    () => queueMicrotask(() => thumbHelpers.update()),
+    { defer: true },
   );
 
   // Sync thumbnail slider with main slider
-  onMount(() => {
+  onSettled(() => {
     // Wait for next tick to ensure both sliders are mounted
     queueMicrotask(() => {
       const mainSliderInstance = mainHelpers()?.slider();
@@ -302,8 +294,5 @@ export const SliderThumbnails: FlowComponent<{
     });
   });
 
-  // Prevent tree-shaking
-  thumbSlider;
-
-  return <div use:thumbSlider>{props.children}</div>;
+  return <div ref={thumbSlider}>{props.children}</div>;
 };

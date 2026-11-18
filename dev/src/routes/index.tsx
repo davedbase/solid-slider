@@ -1,5 +1,4 @@
 import { createSignal, For } from "solid-js";
-import { A } from "@solidjs/router";
 import { Slider, SliderButton, SliderProvider } from "../../../src/index";
 
 import "../../../src/slider.css";
@@ -11,9 +10,10 @@ export default function Home() {
     <div>
       <h1>Solid Slider Examples</h1>
       <nav style={{ "margin-bottom": "20px" }}>
-        <A href="/">Basic</A> | <A href="/dots">Dots Navigation</A> |{" "}
-        <A href="/thumbnails">Thumbnail Navigation</A> |{" "}
-        <A href="/autoplay">Autoplay</A> | <A href="/primitive">Primitive</A>
+        <a href="/">Basic</a> | <a href="/dots">Dots Navigation</a> |{" "}
+        <a href="/thumbnails">Thumbnail Navigation</a> |{" "}
+        <a href="/thumbnails-simple">Thumbnails (simple)</a> |{" "}
+        <a href="/autoplay">Autoplay</a> | <a href="/primitive">Primitive</a>
       </nav>
       <SliderProvider>
         <Slider

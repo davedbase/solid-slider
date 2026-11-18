@@ -1,0 +1,6 @@
+minimumReleaseAgeExclude:
+  - '@solidjs/babel-plugin@2.0.1'
+  - '@solidjs/signals@2.0.1'
+  - '@solidjs/vite-plugin@3.0.1'
+  - '@solidjs/web@2.0.1'
+  - solid-js@2.0.1

@@ -8,10 +8,9 @@ export default function Home() {
     loop: true,
     initial: 4,
   });
-  slider;
   return (
     <>
-      <div use:slider>
+      <div ref={slider}>
         <div class="slide1">1</div>
         <div class="slide2">2</div>
         <div class="slide3">3</div>

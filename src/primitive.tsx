@@ -1,10 +1,10 @@
 import {
-  on,
-  onMount,
+  onSettled,
   createSignal,
   onCleanup,
   Accessor,
   createEffect,
+  untrack,
 } from "solid-js";
 import { access } from "@solid-primitives/utils";
 import KeenSlider, {
@@ -14,15 +14,6 @@ import KeenSlider, {
   KeenSliderPlugin,
   TrackDetails,
 } from "keen-slider";
-
-declare module "solid-js" {
-  namespace JSX {
-    interface Directives {
-      slider: {};
-      thumbSlider: {};
-    }
-  }
-}
 
 export type SliderControls<O, P, H extends string> = [
   create: (el: HTMLElement) => void,
@@ -60,7 +51,7 @@ export type SliderControls<O, P, H extends string> = [
  * @example
  * ```ts
  * const [create, { prev, next }] = createSlider();
- * <div use:slider>...</div>
+ * <div ref={create}>...</div>
  * ```
  */
 export const createSlider = <
@@ -74,7 +65,9 @@ export const createSlider = <
   let slider: KeenSliderInstance<O, P, H> | undefined;
   let el: HTMLElement;
   const opts = () => access(options);
-  const [current, setCurrent] = createSignal((opts() as any)?.initial || 0);
+  const [current, setCurrent] = createSignal(
+    untrack(() => (opts() as any)?.initial) || 0,
+  );
   const destroy = () => slider && slider.destroy();
   const getOptions = (overrides = {}): KeenSliderOptions<O, P, H> => {
     const baseOpts = opts();
@@ -85,18 +78,30 @@ export const createSlider = <
     } as KeenSliderOptions<O, P, H>;
   };
   const update = () => slider?.update(getOptions());
-  // Slider creation method and directive function
+  // Reactive setup lives here (owned by the caller). The returned `create`
+  // is a ref callback, which runs without an owner and only touches the DOM.
+  onSettled(() => {
+    if (!el) return;
+    slider = new KeenSlider<O, P, H>(el, getOptions(), plugins);
+    slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
+  });
+  onCleanup(destroy);
+  if (typeof options === "function") {
+    createEffect(
+      () => opts(),
+      (baseOpts) => {
+        slider?.update({
+          selector: el.childNodes,
+          ...(baseOpts || {}),
+        } as KeenSliderOptions<O, P, H>);
+      },
+      { defer: true },
+    );
+  }
+  // Ref callback: receives the element
   const create = (newEl: HTMLElement) => {
     el = newEl;
     el.classList.add("keen-slider");
-    onMount(() => {
-      slider = new KeenSlider<O, P, H>(el, getOptions(), plugins);
-      slider.on("slideChanged", () => setCurrent(slider!.track.details.rel));
-    });
-    onCleanup(destroy);
-    if (typeof options === "function") {
-      createEffect(on(() => options, update));
-    }
   };
   const moveTo = (
     id: number,

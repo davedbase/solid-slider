@@ -1,5 +1,5 @@
 <p>
-  <img width="100%" src="https://assets.solidjs.com/banner?type=Solid%20Slider&background=tiles&project=%20" alt="Solid Slider">
+  <img width="100%" src="https://assets.solidjs.com/banner?type=Solid%20Slider&project=%20&version=2.0" alt="Solid Slider">
 </p>
 
 
@@ -11,7 +11,9 @@
 
 A carousel/slider implementation in TypeScript for [Solid](https://www.solidjs.com). It's built on Keen-Slider 6, an open-source library agnostic touch slider with native touch/swipe behavior and great performance. It comes with no dependencies, TypeScript support, multitouch support and is compatible with all common browsers.
 
-This package providers both primitive & directive as well as components. You may use either according to your preference. Note that for better SSR support, the component is recommended over the directive.
+This package provides both a primitive and components. You may use either according to your preference. Note that for better SSR support, the components are recommended over the primitive.
+
+> **Solid 2.0:** `solid-slider` 2.x targets Solid 2.0 (`solid-js` and `@solidjs/web` `^2.0.1`) and is published as ESM only. Use the 1.x releases (`solid-slider@1`) with Solid 1.
 
 ## Installation
 
@@ -26,7 +28,9 @@ yarn add solid-slider
 pnpm add solid-slider
 ```
 
-Import either the directive or component as you'd like:
+Solid 1 users should install `solid-slider@1` instead.
+
+Import either the primitive or component as you'd like:
 
 ```ts
 import { Slider, createSlider } from "solid-slider";
@@ -143,14 +147,14 @@ const MyComponent = () => {
 
 ## Use as Primitive
 
-The following is an example of how to create and then bind options using a directive.
+The following is an example of how to create a slider and bind it to an element with a `ref`. Solid 2.0 removed `use:` directives, so the returned `create` function is passed as a ref callback.
 
 ```tsx
 const MyComponent = () => {
   const options = { duration: 1000 };
   const [slider, { current, next, prev, moveTo }] = createSlider(options);
   return (
-    <div use:slider>
+    <div ref={slider}>
       <div>Slide 1</div>
       <div>Slide 2</div>
       <div>Slide 3</div>
@@ -159,25 +163,7 @@ const MyComponent = () => {
 };
 ```
 
-or without a directive:
-
-```tsx
-const MyComponent = () => {
-  let ref: HTMLElement;
-  const options = { duration: 1000 };
-  const [slider, { current, next, prev, moveTo }] = createSlider(options);
-  onMount(() => {
-    slider(ref);
-  });
-  return (
-    <div ref={ref}>
-      <div>Slide 1</div>
-      <div>Slide 2</div>
-      <div>Slide 3</div>
-    </div>
-  );
-};
-```
+Call `createSlider` (and plugins such as `autoplay`) from within a component so their reactive state is owned and cleaned up with it.
 
 The primitive itself returns the following shape:
 
@@ -407,6 +393,13 @@ Thie library exports it's own CSS which is the basic Keen-Slider implementation 
 - 1.3.19 - Attempt to fix export paths
 - 1.3.20 - Package maintenance (bumping versions) and added new dot and thumbnail navigation components
 - 1.3.21 - Patched type for SliderDots (thanks [Violettica](https://github.com/Violettica)), improved additional types.
+- 2.0.0 - Upgraded to Solid 2.0. Breaking changes:
+  - Requires `solid-js` and `@solidjs/web` `^2.0.1`.
+  - Published as ESM only; the CommonJS build is gone.
+  - `createSlider` returns a ref callback, so use `<div ref={slider}>` instead of `use:slider`.
+  - Call `autoplay()` inside a component so its pause signal and timer are owned and cleaned up.
+  - A function passed as `options` now actually re-applies the options when it changes.
+  - Added a server build for plain Node SSR, and fixed the plugin type and CSS export paths.
 
 ## Keen Options API
 

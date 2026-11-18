@@ -1,11 +1,11 @@
 {
   "name": "solid-slider",
-  "version": "1.3.21",
+  "version": "2.0.0",
   "description": "A slider utility for SolidJS.",
   "author": "David Di Biase",
   "repository": {
     "type": "git",
-    "url": "git+https://davedbase@github.com/davedbase/solid-slider.git"
+    "url": "git+https://github.com/davedbase/solid-slider.git"
   },
   "license": "ISC",
   "bugs": {
@@ -14,53 +14,74 @@
   "homepage": "https://github.com/davedbase/solid-slider#readme",
   "scripts": {
     "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "build": "rollup -c rollup.config.js && cp src/slider.css dist/slider.css && cp src/plugins/adaptiveHeight.css dist/adaptiveHeight/style.css && cp src/plugins/adaptiveWidth.css dist/adaptiveWidth/style.css"
+    "typecheck": "tsc --noEmit -p .",
+    "build": "npm run clean && tsdown && tsc -p tsconfig.solid.json",
+    "check:package": "publint && npm_config_dry_run=false attw --pack . --profile esm-only --exclude-entrypoints ./slider.css ./plugins/adaptiveHeight.css ./plugins/adaptiveWidth.css ./package.json",
+    "prepublishOnly": "node scripts/check-publish-tag.mjs && npm run typecheck && npm run build && npm run check:package",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "type": "module",
-  "main": "./dist/index/index.common.js",
-  "module": "./dist/index/index.module.js",
-  "types": "./dist/index/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index/index.d.ts",
-      "solid": "./dist/index/index.jsx",
-      "import": "./dist/index/index.module.js",
-      "browser": "./dist/index/index.module.js",
-      "require": "./dist/index/index.common.js",
-      "node": "./dist/index/index.common.js"
+      "solid": "./dist/solid/index.jsx",
+      "node": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/server/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./plugins/autoplay": {
-      "types": "./dist/autoplay/index.d.ts",
-      "solid": "./dist/autoplay/autoplay.jsx",
-      "import": "./dist/autoplay/index.module.js",
-      "browser": "./dist/autoplay/index.module.js",
-      "require": "./dist/autoplay/index.common.js",
-      "node": "./dist/autoplay/index.common.js"
+      "solid": "./dist/solid/plugins/autoplay.jsx",
+      "node": {
+        "types": "./dist/plugins/autoplay.d.ts",
+        "default": "./dist/server/plugins/autoplay.mjs"
+      },
+      "default": {
+        "types": "./dist/plugins/autoplay.d.ts",
+        "default": "./dist/plugins/autoplay.js"
+      }
     },
     "./plugins/adaptiveHeight": {
-      "types": "./dist/adaptiveHeight/index.d.ts",
-      "solid": "./dist/adaptiveHeight/adaptiveHeight.jsx",
-      "import": "./dist/adaptiveHeight/index.module.js",
-      "browser": "./dist/adaptiveHeight/index.module.js",
-      "require": "./dist/adaptiveHeight/index.common.js",
-      "node": "./dist/adaptiveHeight/index.common.js"
+      "solid": "./dist/solid/plugins/adaptiveHeight.jsx",
+      "node": {
+        "types": "./dist/plugins/adaptiveHeight.d.ts",
+        "default": "./dist/server/plugins/adaptiveHeight.mjs"
+      },
+      "default": {
+        "types": "./dist/plugins/adaptiveHeight.d.ts",
+        "default": "./dist/plugins/adaptiveHeight.js"
+      }
     },
     "./plugins/adaptiveWidth": {
-      "types": "./dist/adaptiveWidth/index.d.ts",
-      "solid": "./dist/adaptiveWidth/adaptiveWidth.jsx",
-      "import": "./dist/adaptiveWidth/index.module.js",
-      "browser": "./dist/adaptiveWidth/index.module.js",
-      "require": "./dist/adaptiveWidth/index.common.js",
-      "node": "./dist/adaptiveWidth/index.common.js"
+      "solid": "./dist/solid/plugins/adaptiveWidth.jsx",
+      "node": {
+        "types": "./dist/plugins/adaptiveWidth.d.ts",
+        "default": "./dist/server/plugins/adaptiveWidth.mjs"
+      },
+      "default": {
+        "types": "./dist/plugins/adaptiveWidth.d.ts",
+        "default": "./dist/plugins/adaptiveWidth.js"
+      }
     },
     "./slider.css": "./dist/slider.css",
-    "./plugins/adaptiveHeight.css": "./dist/adaptiveHeight/slider.css",
-    "./plugins/adaptiveWidth.css": "./dist/adaptiveWidth/slider.css"
+    "./plugins/adaptiveHeight.css": "./dist/plugins/adaptiveHeight.css",
+    "./plugins/adaptiveWidth.css": "./dist/plugins/adaptiveWidth.css",
+    "./package.json": "./package.json"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "slider",
     "carousel",
@@ -74,18 +95,20 @@
     "plugin"
   ],
   "peerDependencies": {
-    "solid-js": "^1.8.5"
+    "@solidjs/web": "^2.0.1",
+    "solid-js": "^2.0.1"
   },
   "dependencies": {
-    "@solid-primitives/timer": "^1.4.3",
-    "@solid-primitives/utils": "^6.3.2",
+    "@solid-primitives/timer": "^1.4.5",
+    "@solid-primitives/utils": "^7.0.0",
     "keen-slider": "^6.8.6"
   },
   "devDependencies": {
-    "esbuild-plugin-solid": "^0.6.0",
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@solidjs/compiler": "^2.0.1",
     "prettier": "^3.3.3",
-    "rollup": "^4.55.1",
-    "rollup-preset-solid": "^3.0.0",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.7",
     "typescript": "^5.9.3"
   }
 }

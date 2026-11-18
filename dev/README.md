@@ -1,6 +1,6 @@
-# SolidStart
+# Solid Slider dev playground
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+Everything you need to build a Solid project, powered by Vite and Solid 2;
 
 ## Creating a project
 

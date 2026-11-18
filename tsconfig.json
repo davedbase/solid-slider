@@ -6,18 +6,18 @@
     "module": "ESNext",
     "target": "ESNext",
     "newLine": "LF",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
     "jsx": "preserve",
-    "jsxImportSource": "solid-js",
-    "types": [
-      "solid-js"
-    ]
+    "jsxImportSource": "@solidjs/web",
+    "types": []
   },
   "include": [
     "./src"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
